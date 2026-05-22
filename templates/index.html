@@ -763,7 +763,7 @@ footer::before{
     </div>
     <div class="rule"></div>
 
-    <h3>1 — Exponential: $y = Ae^{bx}$</h3>
+    <h3>1 Exponential: $y = Ae^{bx}$</h3>
     <p>Taking the natural logarithm of both sides:</p>
     <div class="math-block center">$$\ln y = \ln A + bx$$</div>
     <p>Setting $Y_i = \ln y_i$ and $c = \ln A$, this becomes $Y = bx + c$ — a straight line. The OLS normal equations on $(x_i, Y_i)$:</p>
@@ -787,7 +787,7 @@ footer::before{
     </div>
     <div class="rule"></div>
 
-    <h3>2 — Power Law: $y = Ax^b$</h3>
+    <h3>2 Power Law: $y = Ax^b$</h3>
     <div class="math-block center">$$\ln y = \ln A + b\ln x$$</div>
     <p>Setting $Y_i = \ln y_i$, $X_i = \ln x_i$, $c = \ln A$ → $Y = bX + c$. Same normal equations:</p>
     <div class="math-block center">
@@ -799,7 +799,7 @@ footer::before{
     </div>
     <div class="rule"></div>
 
-    <h3>3 — Goodness of Fit: $R^2$</h3>
+    <h3>3 Goodness of Fit: $R^2$</h3>
     <div class="math-block center">
       $$R^2 = 1 - \frac{SS_\text{res}}{SS_\text{tot}} = 1 - \frac{\sum(y_i - \hat{y}_i)^2}{\sum(y_i - \bar{y})^2}$$
     </div>
@@ -822,7 +822,7 @@ footer::before{
   </div>
 
   <div class="card reveal">
-    <h3 style="margin-top:0">4 — Assumptions & Limitations</h3>
+    <h3 style="margin-top:0">4 Assumptions & Limitations</h3>
     <div class="comp-grid">
       <div class="comp-card">
         <h5>Requirements</h5>
@@ -844,7 +844,7 @@ footer::before{
       </div>
     </div>
     <div class="rule"></div>
-    <h3>5 — Step-by-Step Algorithm</h3>
+    <h3>5 Step-by-Step</h3>
     <div class="steps">
       <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Validate.</strong> Confirm all $y_i > 0$. For power-law, also confirm all $x_i > 0$. Require $n \ge 3$.</p></div></div>
       <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Apply log transformation.</strong> Compute $Y_i = \ln y_i$. For power-law, also $X_i = \ln x_i$.</p></div></div>
