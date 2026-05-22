@@ -89,19 +89,6 @@ body::before{
 }
 
 /* ══════════════════════════════════════
-   GLOWING BACKGROUND GRAPH (SVG canvas)
-══════════════════════════════════════ */
-#bg-graph{
-  position:fixed;inset:0;
-  pointer-events:none;z-index:0;
-  opacity:.65;
-}
-#bg-graph canvas{
-  width:100%!important;height:100%!important;
-  display:block;
-}
-
-/* ══════════════════════════════════════
    AMBIENT ORBS (enhanced)
 ══════════════════════════════════════ */
 .ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
@@ -228,29 +215,27 @@ header h1 em::after{
 @keyframes rise{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
 
 /* ══════════════════════════════════════
-   ★ PREMIUM ANIMATED TAB BAR
-   Integrated from the provided snippet
+   ★ PREMIUM ANIMATED TAB BAR — wider buttons
 ══════════════════════════════════════ */
 .tabs-outer{
   display:flex;justify-content:center;
   margin-bottom:52px;
 }
 
-/* The pill tab bar */
 .tab-bar{
   --tb-bg: rgba(14,16,30,.92);
   --tb-grey: rgba(255,255,255,.22);
   --tb-primary: var(--gold);
   --tb-primary-light: var(--gold-lt);
   --tb-secondary: rgba(201,168,76,.6);
-  --tb-width: min(560px, 92vw);
-  --tb-height: 72px;
+  --tb-width: min(680px, 96vw);
+  --tb-height: 80px;
   --tb-radius: var(--tb-height);
 
   background: var(--tb-bg);
   width: var(--tb-width);
   height: var(--tb-height);
-  padding: 0 20px;
+  padding: 0 28px;
   position: relative;
   border-radius: var(--tb-radius);
   border: 1px solid rgba(201,168,76,.18);
@@ -262,7 +247,6 @@ header h1 em::after{
   -webkit-backdrop-filter: blur(24px);
   overflow: hidden;
   box-sizing: border-box;
-  position:relative;
 }
 .tab-bar::before{
   content:'';position:absolute;inset:0;border-radius:inherit;
@@ -272,21 +256,25 @@ header h1 em::after{
 
 .tab-bar input[type=radio]{display:none;}
 
+/* Wider labels: increased from 44px to 90px wide */
 .tab-bar label{
-  width: 44px;
-  height: 44px;
+  width: 90px;
+  height: 52px;
   cursor: pointer;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction:column;
-  gap:5px;
-  border-radius:50%;
-  transition:transform .2s var(--ease);
+  gap:6px;
+  border-radius:14px;
+  transition:transform .2s var(--ease), background .2s var(--ease);
   z-index:2;
 }
-.tab-bar label:hover{transform:scale(1.08);}
+.tab-bar label:hover{
+  transform:scale(1.04);
+  background:rgba(201,168,76,.06);
+}
 .tab-bar label:active{transform:scale(.96);}
 
 .tab-bar label::before{
@@ -314,17 +302,12 @@ header h1 em::after{
 
 .tab-bar label .tab-lbl{
   font-family:var(--ff-mono);
-  font-size:.50rem;letter-spacing:.14em;text-transform:uppercase;
+  font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;
   color:rgba(255,255,255,.25);
   transition:color .25s var(--ease);
   white-space:nowrap;
 }
 
-.tab-bar input:checked + label{
-}
-.tab-bar input:checked + label::before{
-  animation: drop-animation .35s ease-in both;
-}
 .tab-bar input:checked + label .tab-icon{
   animation: stretch-animation .5s ease-out .3s;
 }
@@ -336,6 +319,9 @@ header h1 em::after{
 }
 .tab-bar input:checked + label .tab-lbl{
   color:var(--gold);
+}
+.tab-bar input:checked + label::before{
+  animation: drop-animation .35s ease-in both;
 }
 
 @keyframes stretch-animation{
@@ -354,9 +340,6 @@ header h1 em::after{
   from{opacity:1;clip-path: circle(20% at 50% -20%);}
   to{opacity:1;clip-path: circle(130% at top);}
 }
-
-/* hidden real tab buttons for JS */
-.tab-data{display:none;}
 
 /* ══════════════════════════════════════
    PANELS
@@ -417,7 +400,6 @@ p strong{color:var(--text);font-weight:500;}
 .card:hover{border-color:var(--bdr);box-shadow:var(--sh-card),var(--sh-gold);}
 .card:hover::after{opacity:1;}
 
-/* card inner accent line */
 .card-accent{
   position:absolute;left:0;top:0;bottom:0;width:2px;
   background:linear-gradient(180deg,var(--gold),rgba(201,168,76,.08));
@@ -805,16 +787,14 @@ footer::before{
   .btn{padding:12px 22px;font-size:.84rem;}
   h2{font-size:1.6rem;}
   .mv{font-size:1.18rem;}
-  .tab-bar{--tb-height:66px;--tb-width:92vw;padding:0 12px;}
+  .tab-bar{--tb-height:70px;--tb-width:96vw;padding:0 10px;}
+  .tab-bar label{width:72px;height:46px;}
 }
 </style>
 </head>
 <body>
 
 <div id="scroll-prog"></div>
-
-<!-- Glowing graph background canvas -->
-<canvas id="bg-graph"></canvas>
 
 <!-- Ambient Orbs -->
 <div class="ambient">
@@ -1390,70 +1370,6 @@ footer::before{
 ══════════════════════════════════════ -->
 <script>
 /* ─────────────────────────────────────
-   GLOWING BACKGROUND GRAPH
-   Draws softly glowing exponential +
-   power curves that slowly animate
-───────────────────────────────────── */
-(function(){
-  const c=document.getElementById('bg-graph');
-  let W,H,t=0;
-  const GOLD='rgba(201,168,76,';
-  const PLAT='rgba(139,164,188,';
-
-  function resize(){
-    W=c.width=window.innerWidth;
-    H=c.height=window.innerHeight;
-  }
-  resize();
-  window.addEventListener('resize',resize,{passive:true});
-
-  // A curve is defined by: fn(x) → y, color base, alpha, lineWidth
-  const curves=[
-    {fn:x=>Math.exp(.0028*x+Math.sin(t*.0003)*.3),col:GOLD,a:.18,lw:1.5},
-    {fn:x=>Math.exp(.0018*x+Math.cos(t*.0002)*.25),col:GOLD,a:.10,lw:1},
-    {fn:x=>Math.pow(Math.max(x,1),.9+Math.sin(t*.00025)*.12)*0.55,col:PLAT,a:.13,lw:1.2},
-    {fn:x=>Math.exp(.0035*x+Math.sin(t*.00018+1)*.2)*.6,col:PLAT,a:.07,lw:.8},
-    {fn:x=>Math.pow(Math.max(x,1),1.4+Math.cos(t*.00022)*.18)*0.3,col:GOLD,a:.08,lw:.9},
-  ];
-
-  function drawCurve(ctx,curve,offsetY,scaleY){
-    ctx.beginPath();
-    let started=false;
-    for(let px=0;px<=W;px+=2){
-      const raw=curve.fn(px);
-      const py=H-offsetY-raw*scaleY;
-      if(!isFinite(py)||py<-200||py>H+200){started=false;continue;}
-      started?ctx.lineTo(px,py):ctx.moveTo(px,py);
-      started=true;
-    }
-    // glow: draw multiple passes with decreasing alpha & increasing width
-    for(let g=3;g>=0;g--){
-      ctx.strokeStyle=curve.col+(curve.a*(g===0?1:.35-g*.08))+')';
-      ctx.lineWidth=curve.lw+(g*.8);
-      ctx.shadowBlur=g===0?0:20+g*10;
-      ctx.shadowColor=curve.col+'0.5)';
-      ctx.stroke();
-    }
-    ctx.shadowBlur=0;
-  }
-
-  function frame(){
-    t++;
-    const ctx=c.getContext('2d');
-    ctx.clearRect(0,0,W,H);
-    // faint grid lines
-    ctx.strokeStyle='rgba(201,168,76,0.025)';
-    ctx.lineWidth=.5;
-    for(let gx=0;gx<W;gx+=W/10){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,H);ctx.stroke();}
-    for(let gy=0;gy<H;gy+=H/8){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(W,gy);ctx.stroke();}
-    // curves
-    curves.forEach((cv,i)=>drawCurve(ctx,cv,60+i*30,H/(6+i*2)));
-    requestAnimationFrame(frame);
-  }
-  frame();
-})();
-
-/* ─────────────────────────────────────
    FLOATING MATH BACKGROUND
 ───────────────────────────────────── */
 (function(){
@@ -1511,14 +1427,11 @@ const panelMap={
 document.querySelectorAll('.tab-bar input[type=radio]').forEach(radio=>{
   radio.addEventListener('change',function(){
     if(!this.checked)return;
-    // hide all panels
     document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-    // show target panel
     const pid=panelMap[this.id];
     if(!pid)return;
     const panel=document.getElementById(pid);
     panel.classList.add('active');
-    // trigger reveals
     setTimeout(()=>{
       panel.querySelectorAll('.reveal:not(.in)').forEach((el,i)=>{
         setTimeout(()=>el.classList.add('in'),i*100+50);
@@ -1528,7 +1441,6 @@ document.querySelectorAll('.tab-bar input[type=radio]').forEach(radio=>{
   });
 });
 
-// Initial reveal for active panel
 window.addEventListener('load',()=>{
   document.querySelectorAll('.panel.active .reveal').forEach((el,i)=>{
     setTimeout(()=>el.classList.add('in'),i*110+220);
