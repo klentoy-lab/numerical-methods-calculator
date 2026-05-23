@@ -72,7 +72,9 @@ body::before{
 #math-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
 .math-symbol{
   position:absolute;font-family:var(--ff-disp);
-  color:rgba(201,168,76,.032);user-select:none;pointer-events:none;
+  color:rgba(201,168,76,.06); /* Slightly more visible base */
+  text-shadow: 0 0 12px rgba(201,168,76, 0.4); /* Glow effect added */
+  user-select:none;pointer-events:none;
   animation:float-sym linear infinite;white-space:nowrap;
 }
 @keyframes float-sym{
@@ -112,7 +114,7 @@ header h1 em::after{content:'';position:absolute;bottom:-5px;left:0;right:0;heig
 .tab-bar{
   position:relative;
   background:rgba(10,12,24,.94);
-  width:min(680px,94vw);
+  width:min(880px,94vw); /* Increased width from 680px */
   height:80px;
   padding:0 14px;
   border-radius:80px;
@@ -144,7 +146,7 @@ header h1 em::after{content:'';position:absolute;bottom:-5px;left:0;right:0;heig
 
 .tab-bar label{
   flex:1;
-  max-width:155px;
+  max-width:200px; /* Increased from 155px to allow wider spreading */
   height:54px;
   cursor:pointer;
   position:relative;
@@ -404,7 +406,6 @@ footer a:hover{color:var(--gold);}
 
 <div class="wrapper">
 
-<!-- HEADER -->
 <header>
   <div class="eyebrow">
     <span class="eyebrow-line"></span>
@@ -422,7 +423,6 @@ footer a:hover{color:var(--gold);}
   <div class="header-rule"></div>
 </header>
 
-<!-- TAB BAR -->
 <div class="tabs-outer">
   <div class="tab-bar" id="tabBar">
     <div id="tab-indicator"></div>
@@ -430,7 +430,6 @@ footer a:hover{color:var(--gold);}
     <input type="radio" name="tb" id="tb-01" checked/>
     <label for="tb-01">
       <span class="tab-icon">
-        <!-- Theory: Sigma Σ shape — top bar, diagonal to middle, diagonal to bottom, bottom bar -->
         <svg viewBox="0 0 24 24">
           <path d="M18 4H6l7 8-7 8h12"/>
         </svg>
@@ -441,7 +440,6 @@ footer a:hover{color:var(--gold);}
     <input type="radio" name="tb" id="tb-02"/>
     <label for="tb-02">
       <span class="tab-icon">
-        <!-- Examples: flask — top bar + neck + widening body outline -->
         <svg viewBox="0 0 24 24">
           <path d="M8 3h8"/>
           <path d="M9 3v5.5L4 17a2 2 0 001.9 2.5h12.2A2 2 0 0020 17l-5-8.5V3"/>
@@ -453,7 +451,6 @@ footer a:hover{color:var(--gold);}
     <input type="radio" name="tb" id="tb-03"/>
     <label for="tb-03">
       <span class="tab-icon">
-        <!-- Calculator: outer box + display bar + 2x3 button grid using lines -->
         <svg viewBox="0 0 24 24">
           <path d="M4 3a1 1 0 011-1h14a1 1 0 011 1v18a1 1 0 01-1 1H5a1 1 0 01-1-1V3"/>
           <path d="M4 9h16"/>
@@ -467,7 +464,6 @@ footer a:hover{color:var(--gold);}
     <input type="radio" name="tb" id="tb-04"/>
     <label for="tb-04">
       <span class="tab-icon">
-        <!-- Reference: open book with two text lines -->
         <svg viewBox="0 0 24 24">
           <path d="M2 4a2 2 0 012-2h7v20H4a2 2 0 01-2-2V4"/>
           <path d="M22 4a2 2 0 00-2-2h-7v20h7a2 2 0 002-2V4"/>
@@ -480,7 +476,6 @@ footer a:hover{color:var(--gold);}
   </div>
 </div>
 
-<!-- ═══════════ PANEL: THEORY ═══════════ -->
 <div class="panel active" id="panel-theory">
   <div class="card reveal">
     <div class="card-accent"></div>
@@ -593,14 +588,12 @@ footer a:hover{color:var(--gold);}
   </div>
 </div>
 
-<!-- ═══════════ PANEL: EXAMPLES ═══════════ -->
 <div class="panel" id="panel-examples">
   <div class="accuracy-notice">
     <span style="font-size:1.1rem">✓</span>
     <div><strong>All three examples focus on Exponential and Power-Law fitting.</strong> Sums, coefficients, and fitted values have been independently verified. Example 3 corrects a common textbook error in ΣxY.</div>
   </div>
 
-  <!-- Example 1 — Exponential Growth -->
   <div class="card reveal">
     <div class="card-accent"></div>
     <p class="slabel">Example 1 · Exponential Fit — $y = Ae^{bx}$</p>
@@ -655,7 +648,6 @@ footer a:hover{color:var(--gold);}
     </div>
   </div>
 
-  <!-- Example 2 — Power Law -->
   <div class="card reveal">
     <div class="card-accent"></div>
     <p class="slabel">Example 2 · Power-Law Fit — $y = Ax^b$</p>
@@ -696,7 +688,6 @@ footer a:hover{color:var(--gold);}
     </div>
   </div>
 
-  <!-- Example 3 — Exponential Decay -->
   <div class="card reveal">
     <div class="card-accent"></div>
     <p class="slabel">Example 3 · Exponential Fit — Decay Case</p>
@@ -744,7 +735,6 @@ footer a:hover{color:var(--gold);}
   </div>
 </div>
 
-<!-- ═══════════ PANEL: CALCULATOR ═══════════ -->
 <div class="panel" id="panel-calculator">
   <div class="card reveal">
     <div class="card-accent"></div>
@@ -842,7 +832,6 @@ footer a:hover{color:var(--gold);}
   </div>
 </div>
 
-<!-- ═══════════ PANEL: REFERENCE ═══════════ -->
 <div class="panel" id="panel-reference">
   <div class="card reveal">
     <div class="card-accent"></div>
@@ -945,9 +934,7 @@ footer a:hover{color:var(--gold);}
   <span style="font-size:.68rem;margin-top:6px;display:block;opacity:.6">by klent adrian dagsa · Example 3 corrected from standard editions</span>
 </footer>
 
-</div><!-- /wrapper -->
-
-<script>
+</div><script>
 /* ── FLOATING MATH SYMBOLS ── */
 (function(){
   const syms=['y=Ae^{bx}','lny=lnA+bx','R²=1−SSᵣ/SSₜ','y=Axᵇ','A=eᶜ','b=(nΣXY−ΣXΣY)/(nΣX²−(ΣX)²)','c=Ȳ−bX̄','SS_res','SS_tot','Σx²','Σxy','t½=ln2/|b|','Td=ln2/b','e^c','ln A','Σ(yᵢ−ŷᵢ)²','R²','OLS','lny','lnx'];
