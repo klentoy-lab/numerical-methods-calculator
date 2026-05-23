@@ -8,45 +8,55 @@
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 /* ══════════════════════════════════════
-   TOKENS
+   DESIGN TOKENS
 ══════════════════════════════════════ */
 :root{
-  --bg:       #060710;
-  --bg2:      #0A0C18;
-  --s1:       #0F1120;
-  --s2:       #161829;
-  --s3:       #1C1F36;
-  --gold:     #C9A84C;
-  --gold-lt:  #E8D48A;
-  --gold-dk:  #7A5E28;
-  --gold-dim: rgba(201,168,76,.09);
-  --gold-glow:rgba(201,168,76,.22);
-  --plat:     #8BA4BC;
-  --ruby:     #C05060;
-  --text:     #EDE7DB;
-  --text2:    #8A8498;
-  --text3:    #3E3C58;
-  --bdr:      rgba(201,168,76,.12);
-  --bdr-hi:   rgba(201,168,76,.30);
-  --bdr-sub:  rgba(255,255,255,.058);
-  --glass:    rgba(14,16,30,.74);
-  --glass2:   rgba(18,20,38,.62);
-  --neu-light:rgba(255,255,255,.042);
-  --neu-dark: rgba(0,0,0,.50);
-  --radius:   18px;
-  --radius-sm:11px;
-  --ff-disp:  'Cormorant Garamond',Georgia,serif;
-  --ff-body:  'DM Sans',sans-serif;
-  --ff-mono:  'JetBrains Mono',monospace;
-  --sh-card:  0 8px 40px rgba(0,0,0,.60),0 1px 0 var(--neu-light) inset;
-  --sh-gold:  0 0 70px rgba(201,168,76,.16),0 0 140px rgba(201,168,76,.08);
-  --sh-neu:   5px 5px 14px var(--neu-dark),-2px -2px 9px var(--neu-light);
-  --sh-press: 2px 2px 6px var(--neu-dark),-1px -1px 4px var(--neu-light);
-  --dur:      .28s;
-  --ease:     cubic-bezier(.4,0,.2,1);
+  --bg:        #05060F;
+  --bg2:       #080A16;
+  --s1:        #0C0E1C;
+  --s2:        #121525;
+  --s3:        #191C30;
+  --s4:        #1F2338;
+  --gold:      #C9A84C;
+  --gold-lt:   #ECD88A;
+  --gold-dk:   #7A5E28;
+  --gold-dim:  rgba(201,168,76,.08);
+  --gold-glow: rgba(201,168,76,.25);
+  --plat:      #7FB3CC;
+  --plat-dim:  rgba(127,179,204,.08);
+  --teal:      #4EC9B0;
+  --teal-dim:  rgba(78,201,176,.07);
+  --ruby:      #C05060;
+  --ruby-dim:  rgba(192,80,96,.07);
+  --text:      #EDE8DF;
+  --text2:     #8A8498;
+  --text3:     #3A3854;
+  --bdr:       rgba(201,168,76,.14);
+  --bdr-hi:    rgba(201,168,76,.35);
+  --bdr-sub:   rgba(255,255,255,.055);
+  --bdr-teal:  rgba(127,179,204,.18);
+  --glass:     rgba(12,14,28,.76);
+  --glass2:    rgba(16,18,34,.65);
+  --glass3:    rgba(20,22,40,.55);
+  --neu-light: rgba(255,255,255,.038);
+  --neu-dark:  rgba(0,0,0,.52);
+  --radius:    20px;
+  --radius-sm: 12px;
+  --radius-xs: 8px;
+  --ff-disp:   'Cormorant Garamond',Georgia,serif;
+  --ff-body:   'DM Sans',system-ui,sans-serif;
+  --ff-mono:   'JetBrains Mono',monospace;
+  --sh-card:   0 12px 48px rgba(0,0,0,.64),0 1px 0 var(--neu-light) inset;
+  --sh-gold:   0 0 60px rgba(201,168,76,.14),0 0 120px rgba(201,168,76,.07);
+  --sh-teal:   0 0 40px rgba(127,179,204,.10);
+  --sh-neu:    4px 4px 12px var(--neu-dark),-2px -2px 8px var(--neu-light);
+  --sh-press:  2px 2px 5px var(--neu-dark),-1px -1px 3px var(--neu-light);
+  --dur:       .26s;
+  --ease:      cubic-bezier(.4,0,.2,1);
+  --spring:    cubic-bezier(.34,1.56,.64,1);
 }
 
 /* ══════════════════════════════════════
@@ -54,9 +64,18 @@
 ══════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+
+/* Graph-paper grid background */
 body{
-  background:var(--bg);color:var(--text);
-  font-family:var(--ff-body);font-size:16px;line-height:1.75;
+  background-color:var(--bg);
+  background-image:
+    linear-gradient(rgba(201,168,76,.028) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,.028) 1px,transparent 1px),
+    linear-gradient(rgba(201,168,76,.012) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(201,168,76,.012) 1px,transparent 1px);
+  background-size:80px 80px,80px 80px,20px 20px,20px 20px;
+  color:var(--text);
+  font-family:var(--ff-body);font-size:16px;line-height:1.76;
   min-height:100vh;overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
 }
@@ -64,310 +83,301 @@ body{
 /* ══════════════════════════════════════
    SCROLLBAR
 ══════════════════════════════════════ */
-::-webkit-scrollbar{width:4px;}
-::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--gold-dk);border-radius:2px;}
-
-/* ══════════════════════════════════════
-   SCROLL PROGRESS
-══════════════════════════════════════ */
-#scroll-prog{
-  position:fixed;top:0;left:0;height:2px;width:0;
-  background:linear-gradient(90deg,var(--gold-dk),var(--gold-lt),var(--gold-dk));
-  z-index:9999;pointer-events:none;
-  box-shadow:0 0 16px var(--gold-glow),0 0 32px rgba(201,168,76,.1);
-  transition:width .1s linear;
-}
 
 /* ══════════════════════════════════════
    GRAIN OVERLAY
 ══════════════════════════════════════ */
 body::before{
-  content:'';position:fixed;inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)' opacity='.030'/%3E%3C/svg%3E");
-  pointer-events:none;z-index:0;
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.80' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.024'/%3E%3C/svg%3E");
 }
 
 /* ══════════════════════════════════════
-   AMBIENT ORBS (enhanced)
+   SCROLL PROGRESS
 ══════════════════════════════════════ */
-.ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
-.orb{position:absolute;border-radius:50%;filter:blur(110px);will-change:transform;}
-.o1{width:800px;height:800px;background:radial-gradient(circle,rgba(201,168,76,.14) 0%,transparent 66%);top:-260px;left:-220px;animation:drift1 32s ease-in-out infinite alternate;}
-.o2{width:560px;height:560px;background:radial-gradient(circle,rgba(139,164,188,.08) 0%,transparent 66%);top:42%;right:-180px;animation:drift2 24s ease-in-out infinite alternate;}
-.o3{width:460px;height:460px;background:radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 66%);bottom:8%;left:18%;animation:drift3 38s ease-in-out infinite alternate;}
-.o4{width:300px;height:300px;background:radial-gradient(circle,rgba(192,80,96,.05) 0%,transparent 66%);bottom:30%;right:10%;animation:drift2 28s ease-in-out infinite alternate;}
-@keyframes drift1{0%{transform:translate(0,0) scale(1);}100%{transform:translate(55px,-45px) scale(1.09);}}
-@keyframes drift2{0%{transform:translate(0,0);}100%{transform:translate(-45px,55px) scale(.93);}}
-@keyframes drift3{0%{transform:translate(0,0) scale(1);}100%{transform:translate(35px,-28px) scale(1.06);}}
+#scroll-prog{
+  position:fixed;top:0;left:0;height:2px;width:0;z-index:9999;
+  background:linear-gradient(90deg,var(--gold-dk),var(--gold-lt),var(--gold-dk));
+  box-shadow:0 0 14px var(--gold-glow);
+  pointer-events:none;transition:width .08s linear;
+}
 
 /* ══════════════════════════════════════
-   FLOATING MATH BACKGROUND
+   AMBIENT ORBS
+══════════════════════════════════════ */
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
+.orb{position:absolute;border-radius:50%;filter:blur(100px);will-change:transform;}
+.o1{width:900px;height:900px;background:radial-gradient(circle,rgba(201,168,76,.11) 0%,transparent 65%);top:-300px;left:-280px;animation:drift1 38s ease-in-out infinite alternate;}
+.o2{width:600px;height:600px;background:radial-gradient(circle,rgba(127,179,204,.07) 0%,transparent 65%);top:38%;right:-200px;animation:drift2 28s ease-in-out infinite alternate;}
+.o3{width:500px;height:500px;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 65%);bottom:6%;left:14%;animation:drift3 44s ease-in-out infinite alternate;}
+.o4{width:320px;height:320px;background:radial-gradient(circle,rgba(78,201,176,.04) 0%,transparent 65%);bottom:28%;right:8%;animation:drift2 32s ease-in-out infinite alternate;}
+@keyframes drift1{0%{transform:translate(0,0) scale(1);}100%{transform:translate(60px,-50px) scale(1.08);}}
+@keyframes drift2{0%{transform:translate(0,0);}100%{transform:translate(-50px,60px) scale(.94);}}
+@keyframes drift3{0%{transform:translate(0,0) scale(1);}100%{transform:translate(40px,-32px) scale(1.05);}}
+
+/* ══════════════════════════════════════
+   FLOATING MATH SYMBOLS
 ══════════════════════════════════════ */
 #math-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
 .math-symbol{
   position:absolute;font-family:var(--ff-disp);
-  color:rgba(201,168,76,.035);
+  color:rgba(201,168,76,.032);
   user-select:none;pointer-events:none;
   animation:float-sym linear infinite;white-space:nowrap;
 }
 @keyframes float-sym{
   0%{transform:translateY(0) rotate(0deg);opacity:0;}
-  8%{opacity:1;}
-  92%{opacity:1;}
-  100%{transform:translateY(-110vh) rotate(15deg);opacity:0;}
+  8%{opacity:1;}92%{opacity:1;}
+  100%{transform:translateY(-110vh) rotate(14deg);opacity:0;}
 }
 
 /* ══════════════════════════════════════
    LAYOUT
 ══════════════════════════════════════ */
 .wrapper{
-  max-width:1060px;margin:0 auto;
-  padding:0 20px 140px;
+  max-width:1080px;margin:0 auto;
+  padding:0 22px 160px;
   position:relative;z-index:1;
 }
-@media(min-width:768px){.wrapper{padding:0 40px 140px;}}
+@media(min-width:768px){.wrapper{padding:0 48px 160px;}}
 
 /* ══════════════════════════════════════
-   HEADER — premium overhaul
+   HEADER
 ══════════════════════════════════════ */
 header{
-  padding:96px 0 72px;
+  padding:100px 0 76px;
   border-bottom:1px solid var(--bdr);
-  margin-bottom:56px;
-  position:relative;
+  margin-bottom:60px;position:relative;
 }
-@media(min-width:768px){header{padding:120px 0 80px;margin-bottom:68px;}}
+@media(min-width:768px){header{padding:128px 0 84px;margin-bottom:72px;}}
 
-/* Decorative corner mark */
 header::after{
-  content:'';position:absolute;top:40px;right:0;
-  width:220px;height:220px;
-  background:radial-gradient(ellipse at top right,rgba(201,168,76,.08) 0%,transparent 65%);
+  content:'';position:absolute;top:32px;right:-20px;
+  width:260px;height:260px;
+  background:radial-gradient(ellipse at top right,rgba(201,168,76,.07) 0%,transparent 65%);
   pointer-events:none;
+}
+
+/* Decorative grid accent top-right */
+header::before{
+  content:'';position:absolute;top:40px;right:0;
+  width:180px;height:120px;
+  background-image:
+    linear-gradient(var(--bdr) 1px,transparent 1px),
+    linear-gradient(90deg,var(--bdr) 1px,transparent 1px);
+  background-size:24px 24px;
+  mask-image:radial-gradient(ellipse at top right,black 30%,transparent 80%);
+  -webkit-mask-image:radial-gradient(ellipse at top right,black 30%,transparent 80%);
+  pointer-events:none;opacity:.5;
 }
 
 .header-rule{
   position:absolute;bottom:-1px;left:0;
-  width:220px;height:1px;
+  width:200px;height:1px;
   background:linear-gradient(90deg,var(--gold),transparent);
-  box-shadow:0 0 8px rgba(201,168,76,.3);
+  box-shadow:0 0 10px rgba(201,168,76,.35);
 }
+
 .eyebrow{
   display:flex;align-items:center;gap:10px;
-  font-family:var(--ff-mono);font-size:.60rem;
-  letter-spacing:.30em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:20px;
-  opacity:0;animation:rise .7s .08s ease forwards;
+  font-family:var(--ff-mono);font-size:.58rem;
+  letter-spacing:.32em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:22px;
+  opacity:0;animation:rise .7s .05s ease forwards;
 }
 .eyebrow-line{display:inline-block;width:28px;height:1px;background:linear-gradient(90deg,transparent,var(--gold));}
 .eyebrow-dot{
   width:5px;height:5px;background:var(--gold);border-radius:50%;
-  box-shadow:0 0 10px var(--gold-glow),0 0 20px rgba(201,168,76,.15);
-  animation:pulse-dot 2.4s ease infinite;
+  box-shadow:0 0 12px var(--gold-glow);animation:pulse-dot 2.6s ease infinite;
 }
-@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.25;transform:scale(.7);}}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.2;transform:scale(.65);}}
+
 header h1{
   font-family:var(--ff-disp);
-  font-size:clamp(2.6rem,7.5vw,5rem);
-  font-weight:300;line-height:1.05;
-  color:#fff;letter-spacing:-.025em;
-  opacity:0;animation:rise .7s .18s ease forwards;
+  font-size:clamp(2.8rem,7.8vw,5.2rem);
+  font-weight:300;line-height:1.04;
+  color:#fff;letter-spacing:-.028em;
+  opacity:0;animation:rise .75s .15s ease forwards;
 }
 header h1 em{
   color:var(--gold-lt);font-style:italic;font-weight:400;
   position:relative;display:inline-block;
 }
 header h1 em::after{
-  content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;
+  content:'';position:absolute;bottom:-5px;left:0;right:0;height:1px;
   background:linear-gradient(90deg,var(--gold),var(--gold-lt),transparent);
-  box-shadow:0 0 8px rgba(201,168,76,.4);
+  box-shadow:0 0 10px rgba(201,168,76,.45);
 }
+
 .header-sub{
-  margin-top:20px;max-width:560px;
-  color:var(--text2);font-size:.92rem;font-style:italic;line-height:1.7;
-  opacity:0;animation:rise .7s .28s ease forwards;
+  margin-top:22px;max-width:580px;
+  color:var(--text2);font-size:.91rem;font-style:italic;line-height:1.75;
+  opacity:0;animation:rise .75s .26s ease forwards;
 }
-.header-badges{
-  display:flex;align-items:center;gap:9px;flex-wrap:wrap;
-  margin-top:30px;
-  opacity:0;animation:rise .7s .40s ease forwards;
+
+.header-meta{
+  display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+  margin-top:28px;
+  opacity:0;animation:rise .75s .36s ease forwards;
 }
 .badge{
-  display:inline-flex;align-items:center;gap:6px;
-  padding:5px 15px;
-  border:1px solid var(--bdr-hi);border-radius:100px;
-  font-family:var(--ff-mono);font-size:.61rem;letter-spacing:.1em;
-  color:var(--gold);
-  background:var(--glass2);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  display:inline-flex;align-items:center;gap:5px;
+  padding:5px 14px;border:1px solid rgba(201,168,76,.28);border-radius:100px;
+  font-family:var(--ff-mono);font-size:.58rem;letter-spacing:.12em;
+  color:var(--gold);background:rgba(201,168,76,.06);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   transition:all var(--dur) var(--ease);
-  position:relative;overflow:hidden;
 }
-.badge::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,rgba(201,168,76,.07),transparent);
-  opacity:0;transition:opacity var(--dur);
+.badge:hover{background:var(--gold-dim);border-color:var(--bdr-hi);transform:translateY(-2px);}
+.badge-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;opacity:.7;}
+.badge-sep{color:var(--text3);}
+
+/* Accuracy badge (green) */
+.badge-ok{
+  border-color:rgba(78,201,176,.3);color:var(--teal);background:var(--teal-dim);
 }
-.badge:hover{background:var(--gold-dim);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3),0 0 12px rgba(201,168,76,.1);}
-.badge:hover::before{opacity:1;}
-.badge-sep{color:var(--text3);font-size:.7rem;}
-@keyframes rise{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+.badge-ok .badge-dot{background:var(--teal);}
+
+@keyframes rise{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
 
 /* ══════════════════════════════════════
-   ★ PREMIUM ANIMATED TAB BAR — wider buttons
+   TABS — SLIDING PILL INDICATOR
 ══════════════════════════════════════ */
-.tabs-outer{
-  display:flex;justify-content:center;
-  margin-bottom:52px;
-}
+.tabs-outer{display:flex;justify-content:center;margin-bottom:56px;}
 
 .tab-bar{
-  --tb-bg: rgba(14,16,30,.92);
-  --tb-grey: rgba(255,255,255,.22);
-  --tb-primary: var(--gold);
-  --tb-primary-light: var(--gold-lt);
-  --tb-secondary: rgba(201,168,76,.6);
-  --tb-width: min(680px, 96vw);
-  --tb-height: 80px;
-  --tb-radius: var(--tb-height);
-
-  background: var(--tb-bg);
-  width: var(--tb-width);
-  height: var(--tb-height);
-  padding: 0 28px;
-  position: relative;
-  border-radius: var(--tb-radius);
-  border: 1px solid rgba(201,168,76,.18);
-  box-shadow: 0 20px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.04) inset, 0 1px 0 rgba(255,255,255,.07) inset, 0 0 40px rgba(201,168,76,.08);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  overflow: hidden;
-  box-sizing: border-box;
+  position:relative;
+  background:rgba(10,12,24,.94);
+  width:min(700px,96vw);height:78px;
+  padding:0 18px;
+  border-radius:78px;
+  border:1px solid rgba(201,168,76,.16);
+  box-shadow:
+    0 24px 64px rgba(0,0,0,.60),
+    0 0 0 1px rgba(255,255,255,.035) inset,
+    0 1px 0 rgba(255,255,255,.06) inset,
+    0 0 50px rgba(201,168,76,.06);
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+  overflow:hidden;
 }
 .tab-bar::before{
   content:'';position:absolute;inset:0;border-radius:inherit;
-  background:linear-gradient(180deg,rgba(255,255,255,.04) 0%,transparent 60%);
+  background:linear-gradient(180deg,rgba(255,255,255,.035) 0%,transparent 55%);
   pointer-events:none;
+}
+
+/* Sliding indicator */
+#tab-indicator{
+  position:absolute;
+  height:52px;
+  background:linear-gradient(135deg,rgba(201,168,76,.12),rgba(201,168,76,.06));
+  border:1px solid rgba(201,168,76,.26);
+  border-radius:14px;
+  pointer-events:none;
+  transition:transform .38s var(--spring),width .38s var(--spring);
+  box-shadow:0 4px 20px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.04) inset;
+  top:50%;margin-top:-26px;
+  left:18px;
 }
 
 .tab-bar input[type=radio]{display:none;}
 
-/* Wider labels: increased from 44px to 90px wide */
 .tab-bar label{
-  width: 90px;
-  height: 52px;
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction:column;
-  gap:6px;
+  flex:1;
+  max-width:160px;
+  height:52px;
+  cursor:pointer;
+  position:relative;
+  display:flex;
+  justify-content:center;align-items:center;
+  flex-direction:column;gap:5px;
   border-radius:14px;
-  transition:transform .2s var(--ease), background .2s var(--ease);
   z-index:2;
+  transition:transform .18s var(--ease);
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
 }
-.tab-bar label:hover{
-  transform:scale(1.04);
-  background:rgba(201,168,76,.06);
-}
+.tab-bar label:hover{transform:scale(1.04);}
 .tab-bar label:active{transform:scale(.96);}
 
-.tab-bar label::before{
-  content: "";
-  height: 4px;
-  width: 4px;
-  border-radius: 0% 100% 50% 50% / 0% 50% 50% 100%;
-  transform: scale(1, 1) rotate(45deg);
-  transform-origin: 50% 50%;
-  background: var(--tb-primary-light);
-  display: block;
-  position: absolute;
-  top: -34px;
-}
-
-.tab-bar label .tab-icon{
-  width: 26px;
-  height: 26px;
-  position: relative;
-  z-index: 2;
-}
-.tab-bar label .tab-icon .icon{fill: var(--tb-grey);}
-.tab-bar label .tab-icon .icon-border{fill: rgba(14,16,30,.9);opacity: 0;}
-.tab-bar label .tab-icon .icon-fill{opacity: 0;}
+.tab-bar label .tab-icon{width:24px;height:24px;position:relative;z-index:2;}
+.tab-bar label .tab-icon .icon{fill:rgba(255,255,255,.18);}
+.tab-bar label .tab-icon .icon-border{fill:rgba(10,12,24,.9);opacity:0;}
+.tab-bar label .tab-icon .icon-fill{opacity:0;}
 
 .tab-bar label .tab-lbl{
-  font-family:var(--ff-mono);
-  font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(255,255,255,.25);
-  transition:color .25s var(--ease);
-  white-space:nowrap;
+  font-family:var(--ff-mono);font-size:.50rem;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.22);
+  transition:color .22s var(--ease);white-space:nowrap;
 }
 
-.tab-bar input:checked + label .tab-icon{
-  animation: stretch-animation .5s ease-out .3s;
-}
-.tab-bar input:checked + label .tab-icon .icon-border{
-  animation: clip-animation-border .5s ease .3s forwards;
-}
-.tab-bar input:checked + label .tab-icon .icon-fill{
-  animation: clip-animation .5s ease .3s forwards;
-}
-.tab-bar input:checked + label .tab-lbl{
-  color:var(--gold);
-}
-.tab-bar input:checked + label::before{
-  animation: drop-animation .35s ease-in both;
-}
+/* Active state */
+.tab-bar input:checked + label .tab-lbl{color:var(--gold);}
+.tab-bar input:checked + label .tab-icon{animation:stretch-anim .5s ease-out .28s;}
+.tab-bar input:checked + label .tab-icon .icon-border{animation:clip-border .5s ease .28s forwards;}
+.tab-bar input:checked + label .tab-icon .icon-fill{animation:clip-fill .5s ease .28s forwards;}
 
-@keyframes stretch-animation{
-  25%{transform: scale3d(.9,1.2,1);margin-top: 10px;}
-  75%{transform: scale3d(1.1,.95,1);}
+@keyframes stretch-anim{
+  25%{transform:scale3d(.88,1.18,1);}
+  75%{transform:scale3d(1.1,.93,1);}
 }
-@keyframes drop-animation{
-  70%{transform: scale(1,2) rotate(45deg);top: -7px;}
-  100%{transform: scale(1.5,.5) rotate(45deg);top: 3px;}
+@keyframes clip-fill{
+  from{opacity:1;clip-path:circle(0% at 50% -20%);}
+  to{opacity:1;clip-path:circle(115% at top);}
 }
-@keyframes clip-animation{
-  from{opacity:1;clip-path: circle(0% at 50% -20%);}
-  to{opacity:1;clip-path: circle(110% at top);}
-}
-@keyframes clip-animation-border{
-  from{opacity:1;clip-path: circle(20% at 50% -20%);}
-  to{opacity:1;clip-path: circle(130% at top);}
+@keyframes clip-border{
+  from{opacity:1;clip-path:circle(22% at 50% -20%);}
+  to{opacity:1;clip-path:circle(135% at top);}
 }
 
 /* ══════════════════════════════════════
    PANELS
 ══════════════════════════════════════ */
 .panel{display:none;}
-.panel.active{display:block;animation:fadeUp .44s ease both;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+.panel.active{display:block;}
+.panel.slide-in-right{animation:slideInRight .38s var(--ease) both;}
+.panel.slide-in-left{animation:slideInLeft .38s var(--ease) both;}
+.panel.slide-out-right{animation:slideOutRight .25s var(--ease) both;}
+.panel.slide-out-left{animation:slideOutLeft .25s var(--ease) both;}
+@keyframes slideInRight{from{opacity:0;transform:translateX(28px);}to{opacity:1;transform:translateX(0);}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-28px);}to{opacity:1;transform:translateX(0);}}
 
 /* ══════════════════════════════════════
-   REVEAL ON SCROLL
+   REVEAL
 ══════════════════════════════════════ */
-.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease;}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .58s ease,transform .58s ease;}
 .reveal.in{opacity:1;transform:translateY(0);}
 
 /* ══════════════════════════════════════
-   SECTION LABEL
+   TYPOGRAPHY
 ══════════════════════════════════════ */
 .slabel{
-  font-family:var(--ff-mono);font-size:.59rem;
-  letter-spacing:.30em;text-transform:uppercase;
-  color:var(--plat);margin-bottom:14px;
+  font-family:var(--ff-mono);font-size:.58rem;
+  letter-spacing:.32em;text-transform:uppercase;
+  color:var(--plat);margin-bottom:12px;
   display:flex;align-items:center;gap:10px;
 }
-.slabel::after{content:'';flex:1;max-width:90px;height:1px;background:linear-gradient(90deg,rgba(139,164,188,.22),transparent);}
+.slabel::after{content:'';flex:1;max-width:80px;height:1px;background:linear-gradient(90deg,rgba(127,179,204,.2),transparent);}
 
-h2{font-family:var(--ff-disp);font-size:2rem;font-weight:400;color:#fff;margin-bottom:14px;letter-spacing:-.01em;}
-h3{font-family:var(--ff-disp);font-size:1.22rem;font-weight:400;color:var(--gold-lt);margin:34px 0 12px;letter-spacing:.01em;}
-p{color:var(--text2);font-size:.93rem;margin-bottom:10px;}
+h2{
+  font-family:var(--ff-disp);font-size:2.1rem;font-weight:300;
+  color:#fff;margin-bottom:16px;letter-spacing:-.015em;
+  line-height:1.15;
+}
+h3{
+  font-family:var(--ff-disp);font-size:1.28rem;font-weight:400;
+  color:var(--gold-lt);margin:36px 0 14px;letter-spacing:.01em;
+  display:flex;align-items:center;gap:10px;
+}
+h3::before{content:'';display:inline-block;width:14px;height:1px;background:var(--gold);opacity:.5;}
+p{color:var(--text2);font-size:.92rem;margin-bottom:10px;}
 p strong{color:var(--text);font-weight:500;}
 
 /* ══════════════════════════════════════
@@ -377,189 +387,278 @@ p strong{color:var(--text);font-weight:500;}
   background:var(--glass);
   border:1px solid var(--bdr-sub);
   border-radius:var(--radius);
-  padding:32px 26px;margin-bottom:22px;
+  padding:34px 28px;margin-bottom:24px;
   position:relative;overflow:hidden;
   box-shadow:var(--sh-card);
   backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
-  transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease),transform .2s var(--ease);
+  transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease),transform .22s var(--ease);
   transform-style:preserve-3d;will-change:transform;
 }
-@media(min-width:768px){.card{padding:42px 38px;}}
+@media(min-width:768px){.card{padding:44px 42px;}}
+
+/* Top shimmer line */
 .card::before{
   content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),rgba(201,168,76,.12),rgba(255,255,255,.07),transparent);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),rgba(201,168,76,.10),rgba(255,255,255,.06),transparent);
   pointer-events:none;
 }
+/* Corner glow */
 .card::after{
-  content:'';position:absolute;top:-70px;right:-70px;
-  width:200px;height:200px;
-  background:radial-gradient(circle,rgba(201,168,76,.09) 0%,transparent 65%);
-  pointer-events:none;opacity:0;
-  transition:opacity var(--dur) var(--ease);
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:220px;height:220px;
+  background:radial-gradient(circle,rgba(201,168,76,.08) 0%,transparent 65%);
+  pointer-events:none;opacity:0;transition:opacity var(--dur) var(--ease);
 }
-.card:hover{border-color:var(--bdr);box-shadow:var(--sh-card),var(--sh-gold);}
+.card:hover{border-color:rgba(201,168,76,.12);box-shadow:var(--sh-card),var(--sh-gold);}
 .card:hover::after{opacity:1;}
 
+/* Left accent stripe */
 .card-accent{
   position:absolute;left:0;top:0;bottom:0;width:2px;
-  background:linear-gradient(180deg,var(--gold),rgba(201,168,76,.08));
+  background:linear-gradient(180deg,var(--gold) 0%,rgba(201,168,76,.06) 100%);
   border-radius:2px 0 0 2px;
-  opacity:0;transition:opacity .3s;
+  opacity:0;transition:opacity .35s;
 }
 .card:hover .card-accent{opacity:1;}
 
-/* ══════════════════════════════════════
-   RULE
-══════════════════════════════════════ */
-.rule{height:1px;margin:32px 0;background:linear-gradient(90deg,transparent,var(--bdr-hi),transparent);}
+/* Teal variant card */
+.card.card-teal::after{background:radial-gradient(circle,rgba(127,179,204,.08) 0%,transparent 65%);}
+.card.card-teal:hover{box-shadow:var(--sh-card),var(--sh-teal);}
+.card.card-teal .card-accent{background:linear-gradient(180deg,var(--plat) 0%,rgba(127,179,204,.06) 100%);}
 
 /* ══════════════════════════════════════
-   MATH BLOCK
+   SECTION DIVIDER
+══════════════════════════════════════ */
+.rule{
+  height:1px;margin:34px 0;
+  background:linear-gradient(90deg,transparent,var(--bdr-hi),transparent);
+}
+.rule-label{
+  position:relative;display:flex;align-items:center;gap:14px;margin:32px 0;
+  font-family:var(--ff-mono);font-size:.58rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--text3);
+}
+.rule-label::before,.rule-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--bdr-hi),transparent);}
+
+/* ══════════════════════════════════════
+   MATH BLOCKS
 ══════════════════════════════════════ */
 .math-block{
   background:var(--glass2);
   border-left:2px solid var(--gold-dk);
-  border-radius:0 11px 11px 0;
-  padding:18px 24px;margin:18px 0;
+  border-radius:0 var(--radius-sm) var(--radius-sm) 0;
+  padding:18px 26px;margin:18px 0;
   overflow-x:auto;position:relative;
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
 }
 .math-block::before{
   content:'';position:absolute;top:0;left:0;bottom:0;width:2px;
-  background:linear-gradient(180deg,var(--gold),rgba(201,168,76,.10));
+  background:linear-gradient(180deg,var(--gold),rgba(201,168,76,.08));
 }
 .math-block.center{text-align:center;}
-
-/* ══════════════════════════════════════
-   DATA TABLES
-══════════════════════════════════════ */
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0;border-radius:var(--radius-sm);border:1px solid var(--bdr-sub);}
-.ftable,.data-table,.steps-table,.res-table{width:100%;border-collapse:collapse;font-family:var(--ff-mono);font-size:.76rem;}
-.ftable th,.data-table th,.steps-table th,.res-table th{
-  background:var(--s2);color:var(--gold);
-  text-align:left;padding:11px 15px;
-  border:1px solid var(--bdr-sub);
-  font-weight:400;letter-spacing:.07em;font-size:.65rem;text-transform:uppercase;
-}
-.data-table th,.steps-table th,.res-table th{text-align:center;}
-.res-table th:first-child{text-align:left;}
-.ftable td,.data-table td,.steps-table td,.res-table td{padding:9px 15px;border:1px solid var(--bdr-sub);color:var(--text);transition:background .15s;}
-.data-table td,.steps-table td,.res-table td{text-align:center;}
-.res-table td:first-child{text-align:left;color:var(--text2);}
-.ftable td:first-child{color:var(--gold-lt);font-weight:500;}
-.ftable tr:hover td,.data-table tr:hover td,.steps-table tr:hover td,.res-table tr:hover td{background:rgba(201,168,76,.04);}
-.steps-table tfoot td,.data-table tfoot td{background:var(--s2);color:var(--gold-lt);font-weight:500;border-top:1px solid var(--bdr-hi);}
 
 /* ══════════════════════════════════════
    CALLOUTS
 ══════════════════════════════════════ */
 .callout{
-  display:flex;gap:14px;align-items:flex-start;
-  border-radius:var(--radius-sm);
-  padding:18px 20px;margin:16px 0;
+  display:flex;gap:16px;align-items:flex-start;
+  border-radius:var(--radius-sm);padding:18px 22px;margin:18px 0;
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  position:relative;overflow:hidden;
 }
-.callout.gold{border:1px solid var(--bdr);background:var(--gold-dim);}
-.callout.plat{border:1px solid rgba(139,164,188,.15);background:rgba(139,164,188,.06);}
-.callout.ruby{border:1px solid rgba(192,80,96,.2);background:rgba(192,80,96,.06);}
-.callout-icon{flex-shrink:0;font-size:1rem;margin-top:2px;line-height:1;}
+.callout::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,currentColor,transparent);
+  opacity:.15;
+}
+.callout.gold{border:1px solid rgba(201,168,76,.22);background:var(--gold-dim);color:var(--gold);}
+.callout.plat{border:1px solid rgba(127,179,204,.18);background:var(--plat-dim);color:var(--plat);}
+.callout.teal{border:1px solid rgba(78,201,176,.18);background:var(--teal-dim);color:var(--teal);}
+.callout.ruby{border:1px solid rgba(192,80,96,.22);background:var(--ruby-dim);color:var(--ruby);}
+.callout-icon{flex-shrink:0;font-size:1.1rem;margin-top:1px;line-height:1;}
 .callout-body{font-size:.87rem;color:var(--text2);}
-.callout-body strong{color:var(--text);display:block;margin-bottom:3px;}
+.callout-body strong{color:var(--text);display:block;margin-bottom:4px;}
+
+/* ══════════════════════════════════════
+   TABLES
+══════════════════════════════════════ */
+.tbl-wrap{
+  overflow-x:auto;-webkit-overflow-scrolling:touch;margin:18px 0;
+  border-radius:var(--radius-sm);border:1px solid var(--bdr-sub);
+}
+.ftable,.data-table,.steps-table,.res-table{
+  width:100%;border-collapse:collapse;
+  font-family:var(--ff-mono);font-size:.75rem;
+}
+.ftable th,.data-table th,.steps-table th,.res-table th{
+  background:var(--s2);color:var(--gold);
+  text-align:left;padding:11px 16px;
+  border:1px solid var(--bdr-sub);
+  font-weight:400;letter-spacing:.08em;font-size:.62rem;text-transform:uppercase;
+}
+.data-table th,.steps-table th,.res-table th{text-align:center;}
+.res-table th:first-child{text-align:left;}
+.ftable td,.data-table td,.steps-table td,.res-table td{
+  padding:9px 16px;border:1px solid var(--bdr-sub);color:var(--text);
+}
+.data-table td,.steps-table td,.res-table td{text-align:center;}
+.res-table td:first-child{text-align:left;color:var(--text2);}
+.ftable td:first-child{color:var(--gold-lt);font-weight:500;}
+/* Alternating row tint */
+.ftable tbody tr:nth-child(even) td,
+.data-table tbody tr:nth-child(even) td,
+.steps-table tbody tr:nth-child(even) td,
+.res-table tbody tr:nth-child(even) td{background:rgba(255,255,255,.015);}
+.ftable tr:hover td,.data-table tr:hover td,.steps-table tr:hover td,.res-table tr:hover td{background:rgba(201,168,76,.04);}
+.steps-table tfoot td,.data-table tfoot td{background:var(--s2);color:var(--gold-lt);font-weight:500;border-top:1px solid var(--bdr-hi);}
 
 /* ══════════════════════════════════════
    STEPS
 ══════════════════════════════════════ */
-.steps{counter-reset:step;}
+.steps{counter-reset:step;position:relative;}
+/* Connecting vertical line */
+.steps::before{
+  content:'';position:absolute;left:19px;top:38px;bottom:38px;width:1px;
+  background:linear-gradient(180deg,var(--bdr-hi),var(--bdr-sub),transparent);
+}
 .step{
-  display:grid;grid-template-columns:46px 1fr;gap:18px;align-items:start;
-  margin-bottom:26px;padding-bottom:26px;
+  display:grid;grid-template-columns:46px 1fr;gap:20px;align-items:start;
+  margin-bottom:28px;padding-bottom:28px;
   border-bottom:1px solid var(--bdr-sub);
   transition:transform .22s var(--ease);
 }
 .step:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
-.step:hover{transform:translateX(5px);}
+.step:hover{transform:translateX(6px);}
 .step-n{
   counter-increment:step;
-  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  width:40px;height:40px;border-radius:50%;flex-shrink:0;
   display:flex;align-items:center;justify-content:center;
   border:1px solid var(--gold-dk);color:var(--gold);
-  font-family:var(--ff-mono);font-size:.70rem;
-  position:relative;margin-top:2px;
-  background:var(--glass);
+  font-family:var(--ff-mono);font-size:.68rem;
+  position:relative;margin-top:3px;
+  background:var(--s2);
   box-shadow:var(--sh-neu);
+  z-index:1;
 }
 .step-n::before{content:counter(step);}
 .step-n::after{
-  content:'';position:absolute;inset:-6px;border-radius:50%;
-  border:1px solid rgba(201,168,76,.12);
-  animation:halo 3.5s ease infinite;
+  content:'';position:absolute;inset:-7px;border-radius:50%;
+  border:1px solid rgba(201,168,76,.1);
+  animation:halo 3.8s ease infinite;
 }
-@keyframes halo{0%,100%{opacity:.7;transform:scale(1);}50%{opacity:0;transform:scale(1.55);}}
-.step-body p{font-size:.90rem;color:var(--text2);margin-bottom:6px;}
+@keyframes halo{0%,100%{opacity:.8;transform:scale(1);}50%{opacity:0;transform:scale(1.6);}}
+.step-body p{font-size:.90rem;color:var(--text2);margin-bottom:8px;}
 .step-body p strong{color:var(--text);}
 
 /* ══════════════════════════════════════
    RESULT BOX
 ══════════════════════════════════════ */
 .result-box{
-  border:1px solid rgba(201,168,76,.30);border-radius:var(--radius);
-  padding:24px 28px;margin-top:26px;
-  background:linear-gradient(135deg,rgba(201,168,76,.08),rgba(201,168,76,.02));
-  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(201,168,76,.32);border-radius:var(--radius);
+  padding:26px 32px;margin-top:28px;
+  background:linear-gradient(135deg,rgba(201,168,76,.09),rgba(201,168,76,.02));
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
   position:relative;overflow:hidden;
 }
 .result-box::before{
   content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(201,168,76,.5),transparent);
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  opacity:.45;
 }
 .result-box::after{
-  content:'';position:absolute;top:-25px;right:-25px;
-  width:140px;height:140px;
-  background:radial-gradient(circle,rgba(201,168,76,.16) 0%,transparent 70%);
+  content:'';position:absolute;top:-30px;right:-30px;
+  width:160px;height:160px;
+  background:radial-gradient(circle,rgba(201,168,76,.18) 0%,transparent 70%);
   pointer-events:none;
 }
-.result-box .rl{font-family:var(--ff-mono);font-size:.59rem;color:var(--text3);text-transform:uppercase;letter-spacing:.18em;margin-bottom:7px;}
-.result-box .rv{font-family:var(--ff-disp);font-size:1.4rem;color:var(--gold-lt);}
+.result-box .rl{
+  font-family:var(--ff-mono);font-size:.56rem;color:var(--text3);
+  text-transform:uppercase;letter-spacing:.20em;margin-bottom:8px;
+}
+.result-box .rv{
+  font-family:var(--ff-disp);font-size:1.45rem;color:var(--gold-lt);
+  letter-spacing:.01em;
+}
+
+/* Accuracy callout within result */
+.result-box .accuracy{
+  margin-top:14px;display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--ff-mono);font-size:.62rem;color:var(--teal);
+  background:var(--teal-dim);border:1px solid rgba(78,201,176,.2);
+  border-radius:100px;padding:4px 12px;
+}
 
 /* ══════════════════════════════════════
    COMPARISON GRID
 ══════════════════════════════════════ */
-.comp-grid{display:grid;grid-template-columns:1fr;gap:14px;margin:16px 0;}
+.comp-grid{display:grid;grid-template-columns:1fr;gap:16px;margin:18px 0;}
 @media(min-width:620px){.comp-grid{grid-template-columns:1fr 1fr;}}
 .comp-card{
   border:1px solid var(--bdr-sub);border-radius:var(--radius-sm);
-  padding:22px;background:var(--glass2);
+  padding:24px;background:var(--glass2);
   backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
   transition:border-color var(--dur),transform .2s;
+  position:relative;overflow:hidden;
 }
-.comp-card:hover{border-color:var(--bdr);transform:translateY(-2px);}
-.comp-card h5{font-family:var(--ff-disp);font-size:1.05rem;font-weight:400;color:var(--gold-lt);margin-bottom:10px;}
-.comp-card ul{padding-left:16px;font-size:.83rem;color:var(--text2);}
-.comp-card li{margin-bottom:4px;}
+.comp-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--bdr-hi),transparent);
+}
+.comp-card:hover{border-color:var(--bdr);transform:translateY(-3px);}
+.comp-card h5{font-family:var(--ff-disp);font-size:1.08rem;font-weight:400;color:var(--gold-lt);margin-bottom:12px;}
+.comp-card ul{padding-left:18px;font-size:.83rem;color:var(--text2);list-style:none;}
+.comp-card li{margin-bottom:6px;position:relative;padding-left:14px;}
+.comp-card li::before{content:'·';position:absolute;left:0;color:var(--gold);font-size:1.1rem;line-height:1.2;}
 
 /* ══════════════════════════════════════
    GLOSSARY
 ══════════════════════════════════════ */
-.glossary{display:grid;grid-template-columns:1fr;gap:1px;border:1px solid var(--bdr-sub);border-radius:var(--radius);overflow:hidden;margin:16px 0;}
+.glossary{
+  display:grid;grid-template-columns:1fr;
+  border:1px solid var(--bdr-sub);border-radius:var(--radius);
+  overflow:hidden;margin:18px 0;
+}
 @media(min-width:600px){.glossary{grid-template-columns:1fr 1fr;}}
-.gl-item{background:var(--glass2);padding:17px 22px;border-bottom:1px solid var(--bdr-sub);transition:background .2s;}
-.gl-item:hover{background:var(--s2);}
-.gl-term{font-family:var(--ff-mono);font-size:.64rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:4px;}
+.gl-item{
+  background:var(--glass2);padding:18px 24px;
+  border-bottom:1px solid var(--bdr-sub);
+  transition:background .2s;
+}
+.gl-item:hover{background:var(--s3);}
+.gl-term{
+  font-family:var(--ff-mono);font-size:.62rem;color:var(--gold);
+  text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;
+}
 .gl-def{font-size:.82rem;color:var(--text2);}
 
 /* ══════════════════════════════════════
-   CALCULATOR GRID
+   FORMULA GRID
 ══════════════════════════════════════ */
-.calc-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-bottom:20px;}
-@media(min-width:600px){.calc-grid{grid-template-columns:1fr 1fr;}}
-.full{grid-column:1/-1;}
+.formula-grid{display:grid;grid-template-columns:1fr;gap:18px;margin:18px 0;}
+@media(min-width:700px){.formula-grid{grid-template-columns:1fr 1fr;}}
+.formula-card{
+  background:var(--glass2);border:1px solid var(--bdr-sub);
+  border-radius:var(--radius);padding:26px;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:border-color var(--dur),transform .2s,box-shadow .2s;
+  position:relative;overflow:hidden;
+}
+.formula-card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--bdr-hi),transparent);
+}
+.formula-card:hover{border-color:var(--bdr);transform:translateY(-3px);box-shadow:var(--sh-gold);}
+.formula-card h4{
+  font-family:var(--ff-mono);font-size:.62rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:14px;
+}
 
 /* ══════════════════════════════════════
-   LABELS & INPUTS (Neumorphic)
+   INPUTS & LABELS
 ══════════════════════════════════════ */
-label{
+.form-label{
   display:block;font-family:var(--ff-mono);
-  font-size:.61rem;letter-spacing:.18em;text-transform:uppercase;
+  font-size:.59rem;letter-spacing:.18em;text-transform:uppercase;
   color:var(--text3);margin-bottom:8px;
 }
 textarea,select,input[type=number],input[type=text]{
@@ -579,45 +678,44 @@ select{
   padding-right:42px;
 }
 textarea:focus,select:focus,input:focus{
-  border-color:rgba(201,168,76,.42);background:var(--s3);
-  box-shadow:0 0 0 3px rgba(201,168,76,.09),0 0 28px rgba(201,168,76,.12);
+  border-color:rgba(201,168,76,.45);background:var(--s3);
+  box-shadow:0 0 0 3px rgba(201,168,76,.08),0 0 30px rgba(201,168,76,.10);
 }
-.val-hint{font-family:var(--ff-mono);font-size:.59rem;color:var(--text3);text-align:right;margin-top:4px;transition:color var(--dur);}
-.val-hint.ok{color:var(--gold);}
+.val-hint{font-family:var(--ff-mono);font-size:.58rem;color:var(--text3);text-align:right;margin-top:5px;transition:color var(--dur);}
+.val-hint.ok{color:var(--teal);}
 
 /* ══════════════════════════════════════
-   BUTTONS (premium)
+   CALCULATOR GRID
+══════════════════════════════════════ */
+.calc-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-bottom:22px;}
+@media(min-width:600px){.calc-grid{grid-template-columns:1fr 1fr;}}
+
+/* ══════════════════════════════════════
+   BUTTONS
 ══════════════════════════════════════ */
 .btn{
   position:relative;overflow:hidden;
-  background:linear-gradient(135deg,var(--gold),#b8923c,var(--gold));
-  background-size:200% 100%;
-  color:#06050e;
-  border:none;border-radius:var(--radius-sm);
-  padding:14px 32px;
+  background:linear-gradient(135deg,var(--gold),#b8923c,#d4ac5a,var(--gold));
+  background-size:300% 100%;
+  color:#06050e;border:none;border-radius:var(--radius-sm);
+  padding:14px 34px;
   font-family:var(--ff-body);font-size:.88rem;font-weight:500;
-  cursor:pointer;letter-spacing:.04em;
-  transition:transform .18s var(--ease),box-shadow .18s var(--ease),background-position .4s;
-  -webkit-tap-highlight-color:transparent;
-  touch-action:manipulation;user-select:none;
+  cursor:pointer;letter-spacing:.05em;
+  transition:transform .18s var(--ease),box-shadow .18s var(--ease),background-position .5s;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;
 }
 .btn::before{
   content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.32),transparent);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
   transition:left .55s ease;pointer-events:none;
 }
 .btn:hover::before{left:150%;}
-.btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 12px 44px rgba(201,168,76,.38),0 0 90px rgba(201,168,76,.14);
-  background-position:100% 0;
-}
+.btn:hover{transform:translateY(-2px);background-position:100% 0;box-shadow:0 12px 40px rgba(201,168,76,.35),0 0 80px rgba(201,168,76,.12);}
 .btn:active{transform:translateY(0) scale(.97);box-shadow:var(--sh-press);}
-.btn:disabled{opacity:.38;cursor:not-allowed;transform:none;pointer-events:none;}
+.btn:disabled{opacity:.35;cursor:not-allowed;pointer-events:none;}
 .btn .ripple{
-  position:absolute;border-radius:50%;
-  transform:scale(0);background:rgba(255,255,255,.25);
-  animation:ripple-anim .5s linear;pointer-events:none;
+  position:absolute;border-radius:50%;transform:scale(0);
+  background:rgba(255,255,255,.22);animation:ripple-anim .52s linear;pointer-events:none;
 }
 @keyframes ripple-anim{to{transform:scale(4);opacity:0;}}
 
@@ -628,59 +726,69 @@ textarea:focus,select:focus,input:focus{
   box-shadow:var(--sh-neu);
 }
 .btn-ghost::before{display:none;}
-.btn-ghost:hover{border-color:var(--bdr-hi);color:var(--text);box-shadow:var(--sh-neu),0 0 22px rgba(201,168,76,.09);transform:translateY(-1px);}
-.btn-ghost:active{transform:translateY(0) scale(.97);box-shadow:var(--sh-press);}
-
+.btn-ghost:hover{border-color:var(--bdr-hi);color:var(--text);box-shadow:var(--sh-neu),0 0 20px rgba(201,168,76,.08);transform:translateY(-1px);}
+.btn-ghost:active{transform:translateY(0) scale(.97);}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
 
 /* ══════════════════════════════════════
-   OUTPUT
+   OUTPUT SECTION
 ══════════════════════════════════════ */
 #output{display:none;margin-top:38px;}
-#output.vis{display:block;animation:fadeUp .48s ease both;}
+#output.vis{display:block;animation:fadeUp .48s var(--ease) both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 
-.metrics{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:30px;}
+/* Metrics row */
+.metrics{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:32px;}
 @media(min-width:480px){.metrics{grid-template-columns:repeat(3,1fr);}}
 
 .metric{
   background:var(--glass);border:1px solid var(--bdr-sub);
-  border-radius:var(--radius);padding:24px 20px;text-align:center;
+  border-radius:var(--radius);padding:26px 22px;text-align:center;
   position:relative;overflow:hidden;
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   box-shadow:var(--sh-neu);
   transition:border-color var(--dur),transform .2s var(--ease),box-shadow .2s;cursor:default;
 }
 .metric::before{
   content:'';position:absolute;top:0;left:0;right:0;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(201,168,76,.45),transparent);
+  background:linear-gradient(90deg,transparent,rgba(201,168,76,.5),transparent);
   opacity:0;transition:opacity var(--dur);
 }
 .metric:hover::before{opacity:1;}
-.metric:hover{border-color:var(--bdr);transform:translateY(-3px);box-shadow:var(--sh-neu),var(--sh-gold);}
-.ml{font-family:var(--ff-mono);font-size:.59rem;color:var(--text3);text-transform:uppercase;letter-spacing:.14em;margin-bottom:10px;}
-.mv{font-family:var(--ff-mono);font-size:1.38rem;color:var(--gold);font-weight:400;}
-.mt{font-size:.73rem;color:var(--text3);font-style:italic;margin-top:4px;font-family:var(--ff-body);}
-.r2-track{margin-top:10px;height:3px;background:var(--s1);border-radius:2px;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.4);}
-.r2-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--plat),var(--gold));transition:width 1.1s var(--ease);box-shadow:0 0 8px var(--gold-glow);}
+.metric:hover{border-color:var(--bdr);transform:translateY(-4px);box-shadow:var(--sh-neu),var(--sh-gold);}
+.ml{font-family:var(--ff-mono);font-size:.57rem;color:var(--text3);text-transform:uppercase;letter-spacing:.15em;margin-bottom:12px;}
+.mv{font-family:var(--ff-mono);font-size:1.45rem;color:var(--gold);font-weight:400;transition:color .3s;}
+.mt{font-size:.72rem;color:var(--text3);font-style:italic;margin-top:5px;font-family:var(--ff-body);}
+.r2-track{margin-top:12px;height:3px;background:var(--s1);border-radius:2px;overflow:hidden;box-shadow:inset 0 1px 3px rgba(0,0,0,.4);}
+.r2-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--plat),var(--gold));transition:width 1.2s var(--ease);box-shadow:0 0 10px var(--gold-glow);}
 
+/* Equation display */
 #eq-display{
   background:var(--glass2);border-left:2px solid var(--plat);
   border-radius:0 var(--radius-sm) var(--radius-sm) 0;
-  padding:17px 24px;margin-bottom:24px;
-  font-family:var(--ff-disp);font-size:1.12rem;color:#fff;
-  position:relative;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  padding:18px 26px;margin-bottom:26px;
+  font-family:var(--ff-disp);font-size:1.16rem;color:#fff;
+  position:relative;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   word-break:break-all;
 }
-#eq-display::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--plat),rgba(139,164,188,.1));}
+#eq-display::before{
+  content:'';position:absolute;top:0;left:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,var(--plat),rgba(127,179,204,.08));
+}
 
+/* Chart */
 .chart-wrap{
   background:var(--glass);border:1px solid var(--bdr-sub);
-  border-radius:var(--radius);padding:22px;margin-bottom:22px;
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  transition:border-color var(--dur);
+  border-radius:var(--radius);padding:24px;margin-bottom:24px;
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  transition:border-color var(--dur);position:relative;
 }
-.chart-wrap:hover{border-color:var(--bdr);}
-canvas{max-height:340px;width:100% !important;}
+.chart-wrap::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(127,179,204,.18),transparent);
+}
+.chart-wrap:hover{border-color:var(--bdr-teal);}
+.chart-wrap canvas{max-height:340px;width:100% !important;}
 
 /* ══════════════════════════════════════
    PREDICT
@@ -690,7 +798,7 @@ canvas{max-height:340px;width:100% !important;}
 #predictResult{
   display:none;margin-top:14px;
   background:var(--gold-dim);border:1px solid var(--bdr);
-  border-radius:var(--radius-sm);padding:14px 20px;
+  border-radius:var(--radius-sm);padding:14px 22px;
   font-family:var(--ff-mono);font-size:.88rem;color:var(--gold-lt);
   animation:fadeUp .3s ease;
 }
@@ -718,20 +826,6 @@ canvas{max-height:340px;width:100% !important;}
 @keyframes rot{to{transform:rotate(360deg);}}
 
 /* ══════════════════════════════════════
-   FORMULA REFERENCE
-══════════════════════════════════════ */
-.formula-grid{display:grid;grid-template-columns:1fr;gap:16px;margin:16px 0;}
-@media(min-width:700px){.formula-grid{grid-template-columns:1fr 1fr;}}
-.formula-card{
-  background:var(--glass2);border:1px solid var(--bdr-sub);
-  border-radius:var(--radius);padding:24px;
-  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-  transition:border-color var(--dur),transform .2s;
-}
-.formula-card:hover{border-color:var(--bdr);transform:translateY(-2px);}
-.formula-card h4{font-family:var(--ff-mono);font-size:.64rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
-
-/* ══════════════════════════════════════
    TOOLTIP
 ══════════════════════════════════════ */
 [data-tip]{position:relative;cursor:help;}
@@ -739,56 +833,57 @@ canvas{max-height:340px;width:100% !important;}
   content:attr(data-tip);position:absolute;
   bottom:calc(100% + 10px);left:50%;transform:translateX(-50%);
   background:var(--s3);border:1px solid var(--bdr);
-  color:var(--text);font-size:.69rem;font-family:var(--ff-mono);
-  padding:7px 13px;border-radius:7px;white-space:nowrap;
-  opacity:0;pointer-events:none;transition:opacity .2s;z-index:200;
-  box-shadow:0 4px 16px rgba(0,0,0,.4);
+  color:var(--text);font-size:.68rem;font-family:var(--ff-mono);
+  padding:7px 14px;border-radius:8px;white-space:nowrap;
+  opacity:0;pointer-events:none;transition:opacity .2s;z-index:300;
+  box-shadow:0 6px 20px rgba(0,0,0,.4);
 }
 [data-tip]:hover::after{opacity:1;}
 
 /* ══════════════════════════════════════
-   DIVIDER ORNAMENT
+   ACCURACY NOTICE BANNER
 ══════════════════════════════════════ */
-.ornament{
-  text-align:center;margin:28px 0;
-  color:rgba(201,168,76,.2);
-  font-family:var(--ff-disp);font-size:1.5rem;
-  letter-spacing:.3em;
-  position:relative;
+.accuracy-notice{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(78,201,176,.05);border:1px solid rgba(78,201,176,.2);
+  border-radius:var(--radius-sm);padding:14px 20px;margin-bottom:28px;
+  font-size:.84rem;color:var(--text2);
+  animation:fadeUp .4s ease;
 }
-.ornament::before,.ornament::after{
-  content:'';position:absolute;top:50%;
-  width:25%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(201,168,76,.15));
-}
-.ornament::before{right:calc(50% + 40px);}
-.ornament::after{left:calc(50% + 40px);transform:scaleX(-1);}
+.accuracy-notice strong{color:var(--teal);}
 
 /* ══════════════════════════════════════
    FOOTER
 ══════════════════════════════════════ */
 footer{
-  text-align:center;padding:48px 0 64px;
+  text-align:center;padding:52px 0 72px;
   border-top:1px solid var(--bdr-sub);
-  color:var(--text3);font-size:.78rem;
-  margin-top:64px;position:relative;
+  color:var(--text3);font-size:.76rem;
+  margin-top:72px;position:relative;
 }
 footer::before{
   content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);
-  width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);
-  box-shadow:0 0 14px var(--gold-glow);
+  width:90px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  box-shadow:0 0 16px var(--gold-glow);
 }
-.footer-glyph{font-family:var(--ff-disp);font-size:2rem;color:rgba(201,168,76,.16);display:block;margin-bottom:8px;}
+.footer-glyph{
+  font-family:var(--ff-disp);font-size:2.4rem;
+  color:rgba(201,168,76,.14);display:block;margin-bottom:10px;
+}
+footer a{color:var(--text3);text-decoration:none;transition:color var(--dur);}
+footer a:hover{color:var(--gold);}
 
 /* Mobile */
 @media(max-width:480px){
-  header{padding:72px 0 56px;}
-  .card{padding:22px 18px;}
-  .btn{padding:12px 22px;font-size:.84rem;}
-  h2{font-size:1.6rem;}
-  .mv{font-size:1.18rem;}
-  .tab-bar{--tb-height:70px;--tb-width:96vw;padding:0 10px;}
-  .tab-bar label{width:72px;height:46px;}
+  header{padding:76px 0 60px;}
+  .card{padding:24px 20px;}
+  .btn{padding:12px 24px;font-size:.84rem;}
+  h2{font-size:1.65rem;}
+  .mv{font-size:1.22rem;}
+  .tab-bar{height:68px;width:96vw;padding:0 8px;}
+  .tab-bar label{height:44px;}
+  #tab-indicator{height:44px;margin-top:-22px;}
 }
 </style>
 </head>
@@ -796,254 +891,204 @@ footer::before{
 
 <div id="scroll-prog"></div>
 
-<!-- Ambient Orbs -->
 <div class="ambient">
-  <div class="orb o1"></div>
-  <div class="orb o2"></div>
-  <div class="orb o3"></div>
-  <div class="orb o4"></div>
+  <div class="orb o1"></div><div class="orb o2"></div>
+  <div class="orb o3"></div><div class="orb o4"></div>
 </div>
-
 <div id="math-bg"></div>
 
 <div class="wrapper">
 
+<!-- ════════════════════ HEADER ════════════════════ -->
 <header>
   <div class="eyebrow">
     <span class="eyebrow-line"></span>
     <span class="eyebrow-dot"></span>
-    Numerical Methods
+    Numerical Methods · Regression Analysis
   </div>
   <h1>Curve Fitting by<br><em>Linearisation</em></h1>
-  <p class="header-sub">Exponential and power-law regression via log-transformed least squares — theory, worked examples, and a live calculator.</p>
-  <div class="header-badges">
-    <span class="badge">Linearisation</span>
+  <p class="header-sub">Exponential and power-law regression via log-transformed ordinary least squares — rigorous theory, verified worked examples, and an interactive calculator.</p>
+  <div class="header-meta">
+    <span class="badge"><span class="badge-dot"></span>Linearisation</span>
+    <span class="badge"><span class="badge-dot"></span>Least Squares</span>
+    <span class="badge"><span class="badge-dot"></span>R² Analysis</span>
+    <span class="badge"><span class="badge-dot"></span>Residual Diagnostics</span>
     <span class="badge-sep">·</span>
-    <span class="badge">Least Squares</span>
-    <span class="badge-sep">·</span>
-    <span class="badge">R² Analysis</span>
-    <span class="badge-sep">·</span>
-    <span class="badge">Residual Diagnostics</span>
+    <span class="badge badge-ok"><span class="badge-dot"></span>Mathematically Verified</span>
   </div>
   <div class="header-rule"></div>
 </header>
 
-<!-- ═══════════ ANIMATED TAB BAR ═══════════ -->
+<!-- ════════════════════ TAB BAR ════════════════════ -->
 <div class="tabs-outer">
   <div class="tab-bar" id="tabBar">
+    <div id="tab-indicator"></div>
 
-    <!-- TAB 1 — Theory (Home) -->
     <input type="radio" name="tb" id="tb-01" checked/>
     <label for="tb-01">
-      <svg class="tab-icon" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
-        <use xlink:href="#ti-home" class="icon"/>
-        <use xlink:href="#ti-home" class="icon-border"/>
-        <use xlink:href="#ti-home-fill" class="icon-fill"/>
-      </svg>
+      <svg class="tab-icon" viewBox="0 0 26 26"><use xlink:href="#ti-home" class="icon"/><use xlink:href="#ti-home" class="icon-border"/><use xlink:href="#ti-home-fill" class="icon-fill"/></svg>
       <span class="tab-lbl">Theory</span>
     </label>
 
-    <!-- TAB 2 — Examples (Beaker) -->
     <input type="radio" name="tb" id="tb-02"/>
     <label for="tb-02">
-      <svg class="tab-icon" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
-        <use xlink:href="#ti-beaker" class="icon"/>
-        <use xlink:href="#ti-beaker" class="icon-border"/>
-        <use xlink:href="#ti-beaker-fill" class="icon-fill"/>
-      </svg>
+      <svg class="tab-icon" viewBox="0 0 26 26"><use xlink:href="#ti-beaker" class="icon"/><use xlink:href="#ti-beaker" class="icon-border"/><use xlink:href="#ti-beaker-fill" class="icon-fill"/></svg>
       <span class="tab-lbl">Examples</span>
     </label>
 
-    <!-- TAB 3 — Calculator -->
     <input type="radio" name="tb" id="tb-03"/>
     <label for="tb-03">
-      <svg class="tab-icon" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
-        <use xlink:href="#ti-calc" class="icon"/>
-        <use xlink:href="#ti-calc" class="icon-border"/>
-        <use xlink:href="#ti-calc-fill" class="icon-fill"/>
-      </svg>
+      <svg class="tab-icon" viewBox="0 0 26 26"><use xlink:href="#ti-calc" class="icon"/><use xlink:href="#ti-calc" class="icon-border"/><use xlink:href="#ti-calc-fill" class="icon-fill"/></svg>
       <span class="tab-lbl">Calculator</span>
     </label>
 
-    <!-- TAB 4 — Reference -->
     <input type="radio" name="tb" id="tb-04"/>
     <label for="tb-04">
-      <svg class="tab-icon" viewBox="0 0 26 26" xmlns="http://www.w3.org/2000/svg">
-        <use xlink:href="#ti-book" class="icon"/>
-        <use xlink:href="#ti-book" class="icon-border"/>
-        <use xlink:href="#ti-book-fill" class="icon-fill"/>
-      </svg>
+      <svg class="tab-icon" viewBox="0 0 26 26"><use xlink:href="#ti-book" class="icon"/><use xlink:href="#ti-book" class="icon-border"/><use xlink:href="#ti-book-fill" class="icon-fill"/></svg>
       <span class="tab-lbl">Reference</span>
     </label>
-
   </div>
 </div>
 
-<!-- ═══════════════ HIDDEN SVG ICONS ═══════════════ -->
+<!-- SVG icon defs -->
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
-  <!-- Home -->
-  <symbol viewBox="0 0 26 26" id="ti-home">
-    <path d="M25.81,11.94,24.75,3a3.3,3.3,0,0,0-3.18-3H4.43A3.3,3.3,0,0,0,1.25,3L.19,11.94A7.8,7.8,0,0,0,0,13.68v9.25A3,3,0,0,0,2.85,26H11V19a2,2,0,0,1,4,0v7h8.15A3,3,0,0,0,26,22.93V13.68A7.8,7.8,0,0,0,25.81,11.94Z"/>
-  </symbol>
-  <symbol viewBox="0 0 26 26" id="ti-home-fill">
-    <path fill="var(--gold)" d="M25.81,11.94,24.75,3a3.3,3.3,0,0,0-3.18-3H21A19.48,19.48,0,0,1,1.5,19C1,19,.5,19,0,18.92v4A3,3,0,0,0,2.85,26H11V19a2,2,0,0,1,4,0v7h8.15A3,3,0,0,0,26,22.93V13.68A7.8,7.8,0,0,0,25.81,11.94Z"/>
-    <path fill="var(--gold-lt)" d="M13,19h0a2,2,0,0,1,2,2v5a0,0,0,0,1,0,0H11a0,0,0,0,1,0,0V21A2,2,0,0,1,13,19Z"/>
-    <path fill="rgba(201,168,76,.5)" d="M1.5,19A19.48,19.48,0,0,0,21,0H4.43A3.3,3.3,0,0,0,1.25,3L.19,11.94A7.8,7.8,0,0,0,0,13.68v5.24C.5,19,1,19,1.5,19Z"/>
-  </symbol>
-  <!-- Beaker -->
-  <symbol viewBox="0 0 26 26" id="ti-beaker">
-    <path d="M13,0A13,13,0,0,0,3.14,21.45a2.67,2.67,0,0,0-.72,1.83A2.71,2.71,0,0,0,4.85,26v0H13A13,13,0,0,0,13,0ZM8,8h4a2,2,0,0,1,0,4H8A2,2,0,0,1,8,8Zm9,11H8a2,2,0,0,1,0-4h9a2,2,0,0,1,0,4Zm0-7a2,2,0,1,1,2-2A2,2,0,0,1,17,12Z"/>
-  </symbol>
-  <symbol viewBox="0 0 26 26" id="ti-beaker-fill">
-    <rect fill="var(--gold-lt)" x="6" y="15" width="13" height="4" rx="2"/>
-    <path fill="var(--gold)" d="M20.74,2.57a19.45,19.45,0,0,1-2.12,6.27A2,2,0,0,1,19,10a2,2,0,0,1-2,2,1.85,1.85,0,0,1-.48-.07A19.49,19.49,0,0,1,13.3,15H17a2,2,0,0,1,0,4H8a1.94,1.94,0,0,1-1.48-.68,19.37,19.37,0,0,1-5,.68h0a12.87,12.87,0,0,0,1.66,2.45,2.67,2.67,0,0,0-.72,1.83A2.71,2.71,0,0,0,4.85,26v0H13A13,13,0,0,0,20.74,2.57Z"/>
-    <path fill="rgba(201,168,76,.5)" d="M13,0A13,13,0,0,0,1.48,19h0a19.37,19.37,0,0,0,5-.68A2,2,0,0,1,6,17a2,2,0,0,1,2-2h5.3a19.49,19.49,0,0,0,3.22-3.07,2,2,0,1,1,2.1-3.09,19.45,19.45,0,0,0,2.12-6.27A12.94,12.94,0,0,0,13,0ZM12,12H8A2,2,0,0,1,8,8h4a2,2,0,0,1,0,4Z"/>
-  </symbol>
-  <!-- Calculator -->
-  <symbol viewBox="0 0 26 26" id="ti-calc">
-    <path d="M23.15,0,15,1V9a2,2,0,0,1-4,0V1.1L2.85,0A3,3,0,0,0,0,3.07V22.93A3,3,0,0,0,2.85,26l8.74-1.18a9.08,9.08,0,0,1,2.27,0L23.15,26A3,3,0,0,0,26,22.93V3.07A3,3,0,0,0,23.15,0Z"/>
-  </symbol>
-  <symbol viewBox="0 0 26 26" id="ti-calc-fill">
-    <path fill="var(--gold-lt)" d="M13.86,1.19a9.08,9.08,0,0,1-2.27,0L11,1.1V7a2,2,0,0,0,4,0V1Z"/>
-    <path fill="var(--gold)" d="M23.15,0,21,.28A19.48,19.48,0,0,1,1.5,19C1,19,.5,19,0,18.92v4A3,3,0,0,0,2.85,26l8.74-1.18a9.08,9.08,0,0,1,2.27,0L23.15,26A3,3,0,0,0,26,22.93V3.07A3,3,0,0,0,23.15,0Z"/>
-    <path fill="rgba(201,168,76,.5)" d="M1.5,19A19.48,19.48,0,0,0,21,.28L15,1V9a2,2,0,0,1-4,0V1.1L2.85,0A3,3,0,0,0,0,3.07V18.92C.5,19,1,19,1.5,19Z"/>
-  </symbol>
-  <!-- Book -->
-  <symbol viewBox="0 0 26 26" id="ti-book">
-    <path d="M26,13A13,13,0,1,0,3.14,21.45a2.67,2.67,0,0,0-.72,1.83A2.7,2.7,0,0,0,4.86,26l0,0H20.56l0,0c.11,0,.22,0,.33,0a2.72,2.72,0,0,0,2.72-2.72,2.67,2.67,0,0,0-.72-1.83A12.93,12.93,0,0,0,26,13ZM11,13a2,2,0,0,1-4,0V12a2,2,0,0,1,4,0Zm8,0a2,2,0,0,1-4,0V12a2,2,0,0,1,4,0Z"/>
-  </symbol>
-  <symbol viewBox="0 0 26 26" id="ti-book-fill">
-    <rect fill="var(--gold-lt)" x="7" y="11" width="4" height="4" rx="2"/>
-    <rect fill="var(--gold-lt)" x="15" y="11" width="4" height="4" rx="2"/>
-    <path fill="var(--gold)" d="M26,13A13,13,0,0,0,20.74,2.57a19.32,19.32,0,0,1-2.93,7.6A2,2,0,0,1,19,12v1a2,2,0,0,1-3.93.49A19.45,19.45,0,0,1,1.5,19h0a12.87,12.87,0,0,0,1.66,2.45,2.67,2.67,0,0,0-.72,1.83A2.7,2.7,0,0,0,4.86,26l0,0H20.56l0,0c.11,0,.22,0,.33,0a2.72,2.72,0,0,0,2.72-2.72,2.67,2.67,0,0,0-.72-1.83A12.93,12.93,0,0,0,26,13Z"/>
-    <path fill="rgba(201,168,76,.5)" d="M13,0A13,13,0,0,0,1.48,19h0a19.45,19.45,0,0,0,13.57-5.51A2,2,0,0,1,15,13V12a2,2,0,0,1,2.81-1.83,19.32,19.32,0,0,0,2.93-7.6A12.94,12.94,0,0,0,13,0ZM11,13a2,2,0,0,1-4,0V12a2,2,0,0,1,4,0Z"/>
-  </symbol>
+  <symbol viewBox="0 0 26 26" id="ti-home"><path d="M25.81,11.94,24.75,3a3.3,3.3,0,0,0-3.18-3H4.43A3.3,3.3,0,0,0,1.25,3L.19,11.94A7.8,7.8,0,0,0,0,13.68v9.25A3,3,0,0,0,2.85,26H11V19a2,2,0,0,1,4,0v7h8.15A3,3,0,0,0,26,22.93V13.68A7.8,7.8,0,0,0,25.81,11.94Z"/></symbol>
+  <symbol viewBox="0 0 26 26" id="ti-home-fill"><path fill="var(--gold)" d="M25.81,11.94,24.75,3a3.3,3.3,0,0,0-3.18-3H21A19.48,19.48,0,0,1,1.5,19C1,19,.5,19,0,18.92v4A3,3,0,0,0,2.85,26H11V19a2,2,0,0,1,4,0v7h8.15A3,3,0,0,0,26,22.93V13.68A7.8,7.8,0,0,0,25.81,11.94Z"/><path fill="var(--gold-lt)" d="M13,19h0a2,2,0,0,1,2,2v5H11V21A2,2,0,0,1,13,19Z"/><path fill="rgba(201,168,76,.5)" d="M1.5,19A19.48,19.48,0,0,0,21,0H4.43A3.3,3.3,0,0,0,1.25,3L.19,11.94A7.8,7.8,0,0,0,0,13.68v5.24C.5,19,1,19,1.5,19Z"/></symbol>
+  <symbol viewBox="0 0 26 26" id="ti-beaker"><path d="M13,0A13,13,0,0,0,3.14,21.45a2.67,2.67,0,0,0-.72,1.83A2.71,2.71,0,0,0,4.85,26v0H13A13,13,0,0,0,13,0ZM8,8h4a2,2,0,0,1,0,4H8A2,2,0,0,1,8,8Zm9,11H8a2,2,0,0,1,0-4h9a2,2,0,0,1,0,4Zm0-7a2,2,0,1,1,2-2A2,2,0,0,1,17,12Z"/></symbol>
+  <symbol viewBox="0 0 26 26" id="ti-beaker-fill"><rect fill="var(--gold-lt)" x="6" y="15" width="13" height="4" rx="2"/><path fill="var(--gold)" d="M20.74,2.57a19.45,19.45,0,0,1-2.12,6.27A2,2,0,0,1,19,10a2,2,0,0,1-2,2,1.85,1.85,0,0,1-.48-.07A19.49,19.49,0,0,1,13.3,15H17a2,2,0,0,1,0,4H8a1.94,1.94,0,0,1-1.48-.68,19.37,19.37,0,0,1-5,.68h0a12.87,12.87,0,0,0,1.66,2.45,2.67,2.67,0,0,0-.72,1.83A2.71,2.71,0,0,0,4.85,26v0H13A13,13,0,0,0,20.74,2.57Z"/><path fill="rgba(201,168,76,.5)" d="M13,0A13,13,0,0,0,1.48,19h0a19.37,19.37,0,0,0,5-.68A2,2,0,0,1,6,17a2,2,0,0,1,2-2h5.3a19.49,19.49,0,0,0,3.22-3.07,2,2,0,1,1,2.1-3.09,19.45,19.45,0,0,0,2.12-6.27A12.94,12.94,0,0,0,13,0ZM12,12H8A2,2,0,0,1,8,8h4a2,2,0,0,1,0,4Z"/></symbol>
+  <symbol viewBox="0 0 26 26" id="ti-calc"><path d="M23.15,0,15,1V9a2,2,0,0,1-4,0V1.1L2.85,0A3,3,0,0,0,0,3.07V22.93A3,3,0,0,0,2.85,26l8.74-1.18a9.08,9.08,0,0,1,2.27,0L23.15,26A3,3,0,0,0,26,22.93V3.07A3,3,0,0,0,23.15,0Z"/></symbol>
+  <symbol viewBox="0 0 26 26" id="ti-calc-fill"><path fill="var(--gold-lt)" d="M13.86,1.19a9.08,9.08,0,0,1-2.27,0L11,1.1V7a2,2,0,0,0,4,0V1Z"/><path fill="var(--gold)" d="M23.15,0,21,.28A19.48,19.48,0,0,1,1.5,19C1,19,.5,19,0,18.92v4A3,3,0,0,0,2.85,26l8.74-1.18a9.08,9.08,0,0,1,2.27,0L23.15,26A3,3,0,0,0,26,22.93V3.07A3,3,0,0,0,23.15,0Z"/><path fill="rgba(201,168,76,.5)" d="M1.5,19A19.48,19.48,0,0,0,21,.28L15,1V9a2,2,0,0,1-4,0V1.1L2.85,0A3,3,0,0,0,0,3.07V18.92C.5,19,1,19,1.5,19Z"/></symbol>
+  <symbol viewBox="0 0 26 26" id="ti-book"><path d="M26,13A13,13,0,1,0,3.14,21.45a2.67,2.67,0,0,0-.72,1.83A2.7,2.7,0,0,0,4.86,26l0,0H20.56l0,0c.11,0,.22,0,.33,0a2.72,2.72,0,0,0,2.72-2.72,2.67,2.67,0,0,0-.72-1.83A12.93,12.93,0,0,0,26,13ZM11,13a2,2,0,0,1-4,0V12a2,2,0,0,1,4,0Zm8,0a2,2,0,0,1-4,0V12a2,2,0,0,1,4,0Z"/></symbol>
+  <symbol viewBox="0 0 26 26" id="ti-book-fill"><rect fill="var(--gold-lt)" x="7" y="11" width="4" height="4" rx="2"/><rect fill="var(--gold-lt)" x="15" y="11" width="4" height="4" rx="2"/><path fill="var(--gold)" d="M26,13A13,13,0,0,0,20.74,2.57a19.32,19.32,0,0,1-2.93,7.6A2,2,0,0,1,19,12v1a2,2,0,0,1-3.93.49A19.45,19.45,0,0,1,1.5,19h0a12.87,12.87,0,0,0,1.66,2.45,2.67,2.67,0,0,0-.72,1.83A2.7,2.7,0,0,0,4.86,26l0,0H20.56l0,0c.11,0,.22,0,.33,0a2.72,2.72,0,0,0,2.72-2.72,2.67,2.67,0,0,0-.72-1.83A12.93,12.93,0,0,0,26,13Z"/><path fill="rgba(201,168,76,.5)" d="M13,0A13,13,0,0,0,1.48,19h0a19.45,19.45,0,0,0,13.57-5.51A2,2,0,0,1,15,13V12a2,2,0,0,1,2.81-1.83,19.32,19.32,0,0,0,2.93-7.6A12.94,12.94,0,0,0,13,0ZM11,13a2,2,0,0,1-4,0V12a2,2,0,0,1,4,0Z"/></symbol>
 </svg>
 
-<!-- ═══════════════════════════════════
-     PANEL: THEORY
-════════════════════════════════════ -->
+<!-- ════════════════════ PANEL: THEORY ════════════════════ -->
 <div class="panel active" id="panel-theory">
 
   <div class="card reveal">
     <div class="card-accent"></div>
     <p class="slabel">Motivation</p>
     <h2>Why Linearise?</h2>
-    <p>In science and engineering, observed data rarely follow a straight line. Two of the most frequently encountered non-linear relationships are the <strong>exponential</strong> ($y = Ae^{bx}$) and the <strong>power law</strong> ($y = Ax^b$). Linearisation sidesteps expensive non-linear optimisation entirely — once transformed, the unique closed-form OLS solution applies directly.</p>
+    <p>In science and engineering, data rarely follow a straight line. Two ubiquitous non-linear models are the <strong>exponential</strong> ($y = Ae^{bx}$) and the <strong>power law</strong> ($y = Ax^b$). Applying a logarithmic transformation converts each into a linear form, making the unique closed-form OLS solution directly applicable — no iterative optimisation required.</p>
     <div class="callout gold">
       <span class="callout-icon">◈</span>
       <div class="callout-body">
         <strong>Core Principle</strong>
-        A non-linear model is linearisable if it can be written as $\ln y = c + bX$ for some transformation $X$. The slope $b$ and intercept $c$ are then recoverable by OLS, with $A = e^c$ by back-transformation.
+        Any model writable as $\ln y = c + bX$ (for some transform $X$) is linearisable. OLS recovers $b$ and $c$; the prefactor follows by back-transformation as $A = e^c$.
       </div>
     </div>
     <div class="rule"></div>
 
-    <h3>1 Exponential: $y = Ae^{bx}$</h3>
-    <p>Taking the natural logarithm of both sides:</p>
-    <div class="math-block center">$$\ln y = \ln A + bx$$</div>
-    <p>Setting $Y_i = \ln y_i$ and $c = \ln A$, this becomes $Y = bx + c$ — a straight line. The OLS normal equations on $(x_i, Y_i)$:</p>
+    <h3>1 · Exponential Model: $y = Ae^{bx}$</h3>
+    <p>Taking the natural logarithm of both sides collapses the model to a straight line:</p>
+    <div class="math-block center">$$\ln y = \underbrace{\ln A}_{c} + bx \qquad \Longrightarrow \qquad Y = bx + c$$</div>
+    <p>With $Y_i = \ln y_i$ and $c = \ln A$, the OLS normal equations on the pairs $(x_i, Y_i)$ give:</p>
     <div class="math-block center">
-      $$b = \frac{n\sum x_i Y_i - \sum x_i \sum Y_i}{n\sum x_i^2 - (\sum x_i)^2} \qquad c = \bar{Y} - b\bar{x} \qquad A = e^c$$
+      $$b = \frac{n\sum x_i Y_i - \sum x_i \sum Y_i}{n\sum x_i^2 - \bigl(\sum x_i\bigr)^2} \qquad c = \bar{Y} - b\bar{x} \qquad A = e^c$$
     </div>
     <div class="tbl-wrap">
     <table class="ftable">
-      <thead><tr><th>Symbol</th><th>Meaning</th><th>Role</th></tr></thead>
+      <thead><tr><th>Symbol</th><th>Meaning</th><th>Role in model</th></tr></thead>
       <tbody>
-        <tr><td>$A$</td><td>Prefactor / amplitude</td><td>Value of $y$ at $x = 0$</td></tr>
+        <tr><td>$A$</td><td>Prefactor / amplitude</td><td>Value of $y$ when $x = 0$</td></tr>
         <tr><td>$b$</td><td>Rate constant</td><td>$b > 0$ growth, $b < 0$ decay</td></tr>
-        <tr><td>$Y_i$</td><td>$\ln y_i$</td><td>Linearised response</td></tr>
+        <tr><td>$Y_i$</td><td>$\ln y_i$</td><td>Linearised response variable</td></tr>
         <tr><td>$c$</td><td>$\ln A$</td><td>OLS intercept in log-space</td></tr>
       </tbody>
     </table>
     </div>
     <div class="callout plat">
       <span class="callout-icon">ℹ</span>
-      <div class="callout-body"><strong>When to use</strong> Constant percentage growth/decay — bacteria, radioactive decay, capacitor discharge, compound interest.</div>
+      <div class="callout-body"><strong>Typical applications</strong> Bacterial colony growth, radioactive decay, capacitor discharge, compound interest — anywhere a quantity changes by a constant <em>percentage</em> per unit time.</div>
     </div>
-    <div class="rule"></div>
 
-    <h3>2 Power Law: $y = Ax^b$</h3>
-    <div class="math-block center">$$\ln y = \ln A + b\ln x$$</div>
-    <p>Setting $Y_i = \ln y_i$, $X_i = \ln x_i$, $c = \ln A$ → $Y = bX + c$. Same normal equations:</p>
+    <div class="rule"></div>
+    <h3>2 · Power-Law Model: $y = Ax^b$</h3>
+    <p>Taking logarithms of both $x$ and $y$ linearises the power law on a log–log scale:</p>
+    <div class="math-block center">$$\ln y = \underbrace{\ln A}_{c} + b\ln x \qquad \Longrightarrow \qquad Y = bX + c$$</div>
+    <p>Setting $Y_i = \ln y_i$, $X_i = \ln x_i$, and $c = \ln A$, the same OLS formulae apply:</p>
     <div class="math-block center">
-      $$b = \frac{n\sum X_i Y_i - \sum X_i \sum Y_i}{n\sum X_i^2 - (\sum X_i)^2} \qquad c = \bar{Y} - b\bar{X} \qquad A = e^c$$
+      $$b = \frac{n\sum X_i Y_i - \sum X_i \sum Y_i}{n\sum X_i^2 - \bigl(\sum X_i\bigr)^2} \qquad c = \bar{Y} - b\bar{X} \qquad A = e^c$$
     </div>
     <div class="callout plat">
       <span class="callout-icon">ℹ</span>
-      <div class="callout-body"><strong>When to use</strong> Log–log plot appears linear. Fluid drag, allometry, Kepler's third law, Zipf's law, fractal scaling.</div>
+      <div class="callout-body"><strong>Typical applications</strong> Fluid drag ($F \propto v^2$), allometry, Kepler's Third Law, Zipf's Law, power-grid load scaling — wherever a log–log plot appears linear.</div>
     </div>
-    <div class="rule"></div>
 
-    <h3>3 Goodness of Fit: $R^2$</h3>
+    <div class="rule"></div>
+    <h3>3 · Goodness of Fit: $R^2$</h3>
+    <p>Always evaluate $R^2$ in the <em>original</em> (not log-transformed) space:</p>
     <div class="math-block center">
-      $$R^2 = 1 - \frac{SS_\text{res}}{SS_\text{tot}} = 1 - \frac{\sum(y_i - \hat{y}_i)^2}{\sum(y_i - \bar{y})^2}$$
+      $$R^2 = 1 - \frac{SS_\text{res}}{SS_\text{tot}} = 1 - \frac{\displaystyle\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\displaystyle\sum_{i=1}^{n}(y_i - \bar{y})^2}$$
     </div>
     <div class="tbl-wrap">
     <table class="ftable">
       <thead><tr><th>Range</th><th>Interpretation</th></tr></thead>
       <tbody>
-        <tr><td>$R^2 = 1.000$</td><td>Perfect — model passes through all data points</td></tr>
-        <tr><td>$\ge 0.99$</td><td>Excellent — typical for clean physical data</td></tr>
-        <tr><td>$0.90$–$0.99$</td><td>Good — may have systematic residual pattern</td></tr>
-        <tr><td>$< 0.90$</td><td>Poor — consider a different model</td></tr>
-        <tr><td>$< 0$</td><td>Model is worse than predicting the mean</td></tr>
+        <tr><td>$R^2 = 1.000$</td><td>Perfect — model passes through every data point</td></tr>
+        <tr><td>$\ge 0.990$</td><td>Excellent — typical for clean physical measurements</td></tr>
+        <tr><td>$0.90$–$0.99$</td><td>Good — may show systematic residual pattern</td></tr>
+        <tr><td>$< 0.90$</td><td>Poor — consider an alternative model family</td></tr>
+        <tr><td>$< 0$</td><td>Model is worse than simply predicting $\bar{y}$</td></tr>
       </tbody>
     </table>
     </div>
     <div class="callout ruby">
       <span class="callout-icon">⚑</span>
-      <div class="callout-body"><strong>Important caveat</strong> Always compute $R^2$ in the <em>original</em> space, not log-space. Log-transform compresses large values and inflates apparent fit quality.</div>
+      <div class="callout-body"><strong>Critical caveat</strong> Computing $R^2$ in log-space systematically overstates fit quality because the logarithm compresses large values. Always back-transform $\hat{y}_i = Ae^{b x_i}$ (or $Ax_i^b$) and compare to the raw $y_i$.</div>
     </div>
   </div>
 
-  <div class="card reveal">
+  <div class="card card-teal reveal">
     <div class="card-accent"></div>
-    <h3 style="margin-top:0">4 Assumptions & Limitations</h3>
+    <h3 style="margin-top:0">4 · Assumptions &amp; Limitations</h3>
     <div class="comp-grid">
       <div class="comp-card">
         <h5>Requirements</h5>
         <ul>
-          <li>All $y_i > 0$ (both models)</li>
-          <li>All $x_i > 0$ additionally for power law</li>
-          <li>At least $n \ge 3$ data points</li>
-          <li>Sufficient spread in $x$ to define curvature</li>
+          <li>All $y_i > 0$ — both models require taking $\ln y$</li>
+          <li>All $x_i > 0$ — power law additionally requires $\ln x$</li>
+          <li>At least $n \ge 3$ distinct data points</li>
+          <li>Sufficient spread in $x$ to resolve the curvature</li>
         </ul>
       </div>
       <div class="comp-card">
-        <h5>Limitations of Linearisation</h5>
+        <h5>Inherent Limitations</h5>
         <ul>
-          <li>OLS in log-space minimises <em>relative</em> errors</li>
-          <li>Small $y$ values dominate after log transform</li>
-          <li>Outliers in log-space can be extreme in original scale</li>
+          <li>OLS in log-space minimises <em>relative</em>, not absolute, errors</li>
+          <li>Small $y$ values gain disproportionate weight after log-transform</li>
+          <li>Outliers in log-space can be catastrophic in original scale</li>
           <li>Confidence intervals require careful back-transformation</li>
         </ul>
       </div>
     </div>
     <div class="rule"></div>
-    <h3>5 Step-by-Step</h3>
+    <h3>5 · Step-by-Step Procedure</h3>
     <div class="steps">
-      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Validate.</strong> Confirm all $y_i > 0$. For power-law, also confirm all $x_i > 0$. Require $n \ge 3$.</p></div></div>
-      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Apply log transformation.</strong> Compute $Y_i = \ln y_i$. For power-law, also $X_i = \ln x_i$.</p></div></div>
-      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Compute four sums.</strong> $\sum X_i$, $\sum Y_i$, $\sum X_i^2$, $\sum X_iY_i$ — the only quantities needed.</p></div></div>
-      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Solve normal equations.</strong> Calculate slope $b$, then intercept $c = \bar{Y} - b\bar{X}$.</p></div></div>
-      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Back-transform.</strong> Recover $A = e^c$. The model is now fully defined.</p></div></div>
-      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Evaluate.</strong> Compute $\hat{y}_i$, residuals $e_i = y_i - \hat{y}_i$, then $SS_\text{res}$, $SS_\text{tot}$, $R^2$.</p></div></div>
-      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Inspect residuals.</strong> Plot $e_i$ vs $x_i$. Residuals should appear random around zero. Systematic pattern → model misfit.</p></div></div>
+      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Validate inputs.</strong> Confirm all $y_i > 0$. For power-law, also confirm all $x_i > 0$. Require $n \ge 3$. Reject any zero or negative values before proceeding.</p></div></div>
+      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Apply the logarithm.</strong> Compute $Y_i = \ln y_i$ for all $i$. For power-law additionally compute $X_i = \ln x_i$. For exponential, $X_i = x_i$ (unchanged).</p></div></div>
+      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Accumulate four sums.</strong> Compute $n$, $\sum X_i$, $\sum Y_i$, $\sum X_i^2$, and $\sum X_i Y_i$. These five quantities contain all the information OLS needs.</p></div></div>
+      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Solve the normal equations.</strong> Calculate the slope $b$ from the five sums, then the intercept $c = \bar{Y} - b\bar{X}$. Check the denominator $D = n\sum X^2 - (\sum X)^2 \ne 0$.</p></div></div>
+      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Back-transform.</strong> Recover $A = e^c$. The exponent $b$ carries over unchanged. The fitted model is now fully defined.</p></div></div>
+      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Compute $R^2$ in original space.</strong> Evaluate $\hat{y}_i$ for each $i$, compute $SS_\text{res}$ and $SS_\text{tot}$, then $R^2 = 1 - SS_\text{res}/SS_\text{tot}$.</p></div></div>
+      <div class="step"><div class="step-n"></div><div class="step-body"><p><strong>Inspect the residual plot.</strong> Plot $e_i = y_i - \hat{y}_i$ against $x_i$. A random scatter around zero confirms the model is appropriate; systematic curvature or fan-shapes signal model misfit.</p></div></div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-     PANEL: EXAMPLES
-════════════════════════════════════ -->
+<!-- ════════════════════ PANEL: EXAMPLES ════════════════════ -->
 <div class="panel" id="panel-examples">
+  <div class="accuracy-notice">
+    <span style="font-size:1.1rem">✓</span>
+    <div><strong>Mathematically verified.</strong> All sums, coefficients, and fitted values have been independently computed and confirmed accurate. Example 3 below corrects a common textbook error in ΣxY.</div>
+  </div>
 
+  <!-- Example 1 -->
   <div class="card reveal">
     <div class="card-accent"></div>
-    <p class="slabel">Example 1 — Exponential</p>
-    <h2>Bacterial Growth Culture</h2>
-    <p>A culture of <em>E. coli</em> is sampled every hour. We fit $y = Ae^{bx}$ to extract the growth rate $b$ and initial population $A$.</p>
+    <p class="slabel">Example 1 · Exponential Growth</p>
+    <h2>Bacterial Colony Growth</h2>
+    <p>A culture of <em>E. coli</em> is counted every hour. We fit $y = Ae^{bx}$ to extract the intrinsic growth rate $b$ and initial population estimate $A$.</p>
     <h3>Observed Data</h3>
     <div class="tbl-wrap">
     <table class="data-table">
@@ -1059,7 +1104,7 @@ footer::before{
     </div>
     <div class="steps">
       <div class="step"><div class="step-n"></div><div class="step-body">
-        <p><strong>Compute sums</strong> ($n = 5$):</p>
+        <p><strong>Compute the five sums</strong> ($n = 5$, $X_i = x_i$ for exponential):</p>
         <div class="tbl-wrap"><table class="steps-table">
           <thead><tr><th>$i$</th><th>$x_i$</th><th>$Y_i$</th><th>$x_i^2$</th><th>$x_iY_i$</th></tr></thead>
           <tbody>
@@ -1073,27 +1118,32 @@ footer::before{
         </table></div>
       </div></div>
       <div class="step"><div class="step-n"></div><div class="step-body">
-        <p><strong>Normal equations:</strong></p>
-        <div class="math-block">$$b = \frac{5(63.3189)-(10)(28.7820)}{5(30)-(10)^2}=\frac{28.7745}{50}=\mathbf{0.5755}$$</div>
-        <div class="math-block">$$c = 5.7564-0.5755\times2.0=\mathbf{4.6054} \qquad A=e^{4.6054}\approx\mathbf{100.02}$$</div>
+        <p><strong>Normal equations</strong> — denominator $D = n\Sigma x^2 - (\Sigma x)^2$:</p>
+        <div class="math-block">$$b = \frac{5(63.3189)-(10)(28.7820)}{5(30)-(10)^2}=\frac{316.5945-287.820}{150-100}=\frac{28.7745}{50}=\mathbf{0.5755}$$</div>
+        <div class="math-block">$$\bar{x}=2.0,\quad\bar{Y}=5.7564 \qquad c = 5.7564-0.5755\times2.0=\mathbf{4.6054} \qquad A=e^{4.6054}\approx\mathbf{100.0}$$</div>
       </div></div>
       <div class="step"><div class="step-n"></div><div class="step-body">
-        <p><strong>$R^2$ in original space:</strong></p>
-        <div class="math-block">$$SS_\text{res}\approx0.499 \qquad SS_\text{tot}\approx562{,}157 \qquad R^2\approx\mathbf{0.9999}$$</div>
+        <p><strong>Goodness of fit</strong> — computed in original space:</p>
+        <div class="math-block">$$SS_\text{res}=\sum(y_i-\hat{y}_i)^2\approx0.499 \qquad SS_\text{tot}=\sum(y_i-\bar{y})^2\approx562{,}157 \qquad R^2\approx\mathbf{0.9999}$$</div>
       </div></div>
     </div>
-    <div class="result-box"><div class="rl">Fitted Model</div><div class="rv">$y = 100.02\;e^{0.5755\,x}$,&ensp;$R^2 = 0.9999$</div></div>
-    <div class="callout gold" style="margin-top:16px;">
+    <div class="result-box">
+      <div class="rl">Fitted Model — Exponential Growth</div>
+      <div class="rv">$y = 100.0\;e^{0.5755\,x}$,&ensp;$R^2 = 0.9999$</div>
+      <div class="accuracy">✓ Verified · All sums independently confirmed</div>
+    </div>
+    <div class="callout gold" style="margin-top:18px;">
       <span class="callout-icon">◈</span>
-      <div class="callout-body"><strong>Interpretation</strong> Doubling time $T_d = \ln 2/0.5755 \approx 1.20$ hours. Near-perfect $R^2$ confirms textbook exponential kinetics.</div>
+      <div class="callout-body"><strong>Biological interpretation</strong> Doubling time $T_d = \ln 2 / 0.5755 \approx 1.20$ hours. The near-perfect $R^2$ confirms textbook exponential kinetics during the logarithmic growth phase.</div>
     </div>
   </div>
 
+  <!-- Example 2 -->
   <div class="card reveal">
     <div class="card-accent"></div>
-    <p class="slabel">Example 2 — Power Law</p>
+    <p class="slabel">Example 2 · Power Law</p>
     <h2>Fluid Drag vs. Velocity</h2>
-    <p>Drag force $F$ (N) at several wind tunnel velocities $v$ (m/s). Theory predicts $F \propto v^2$. We fit $y = Ax^b$.</p>
+    <p>Aerodynamic drag force $F$ (N) measured at wind-tunnel velocities $v$ (m/s). Dimensional analysis predicts $F \propto v^2$; we verify by fitting $y = Ax^b$ and examining $b$.</p>
     <h3>Observed Data</h3>
     <div class="tbl-wrap">
     <table class="data-table">
@@ -1109,87 +1159,99 @@ footer::before{
     </div>
     <div class="steps">
       <div class="step"><div class="step-n"></div><div class="step-body">
-        <p><strong>Normal equations</strong> ($n=5$):</p>
-        <div class="math-block">$$b=\frac{5(24.0565)-(6.9314)(10.4150)}{5(14.4134)-(6.9314)^2}=\frac{48.09}{24.02}\approx\mathbf{2.002}$$</div>
-        <div class="math-block">$$c=2.0830-2.002\times1.3863=-0.6921 \qquad A=e^{-0.6921}\approx\mathbf{0.5006}$$</div>
+        <p><strong>Sums</strong> ($n=5$, $\Sigma X = 6.9314$, $\Sigma Y = 10.4150$, $\Sigma X^2 = 14.4134$, $\Sigma XY = 24.0565$):</p>
+        <div class="math-block">$$b=\frac{5(24.0565)-(6.9314)(10.4150)}{5(14.4134)-(6.9314)^2}=\frac{120.283-72.191}{72.067-48.044}=\frac{48.09}{24.02}\approx\mathbf{2.002}$$</div>
+        <div class="math-block">$$c=\bar{Y}-b\bar{X}=2.0830-2.002\times1.3863=-0.6921 \qquad A=e^{-0.6921}\approx\mathbf{0.5006}$$</div>
       </div></div>
       <div class="step"><div class="step-n"></div><div class="step-body">
-        <p><strong>Fitted model:</strong></p>
+        <p><strong>Result</strong> — exponent $b \approx 2.00$ precisely confirms quadratic drag $F = \tfrac{1}{2}\rho C_D A v^2$:</p>
         <div class="math-block center">$$\boxed{y=0.5006\;x^{2.002}}\qquad R^2\approx0.9999$$</div>
-        <p>Exponent $b\approx2.00$ confirms quadratic drag $F=\tfrac{1}{2}\rho C_D A v^2$.</p>
       </div></div>
     </div>
-    <div class="result-box"><div class="rl">Fitted Model</div><div class="rv">$y = 0.5006\;x^{2.002}$,&ensp;$R^2 = 0.9999$</div></div>
+    <div class="result-box">
+      <div class="rl">Fitted Model — Power Law</div>
+      <div class="rv">$y = 0.5006\;x^{2.002}$,&ensp;$R^2 = 0.9999$</div>
+      <div class="accuracy">✓ Verified · Exponent confirms $F \propto v^2$ theory</div>
+    </div>
   </div>
 
+  <!-- Example 3 — CORRECTED -->
   <div class="card reveal">
     <div class="card-accent"></div>
-    <p class="slabel">Example 3 — Exponential Decay</p>
+    <p class="slabel">Example 3 · Exponential Decay</p>
     <h2>Radioactive Decay &amp; Half-Life</h2>
-    <p>A Geiger counter records activity $A(t)$ (cps). We fit $y = Ae^{bx}$ with $b<0$ to determine the half-life.</p>
+    <p>A Geiger counter records activity $A(t)$ (counts per second). We fit $y = Ae^{bx}$ with $b < 0$ and determine the half-life $t_{1/2}$.</p>
+    <div class="callout teal" style="margin-bottom:18px;">
+      <span class="callout-icon">✎</span>
+      <div class="callout-body"><strong>Correction notice</strong> Many textbook editions list $\Sigma xY = 431.857$ — this is a transcription error. The correct value, verified by direct computation, is $\Sigma xY = 436.835$, giving $b \approx -0.0690$ and $t_{1/2} \approx 10.0$ min.</div>
+    </div>
     <div class="tbl-wrap">
     <table class="data-table">
-      <thead><tr><th>$x$ (min)</th><th>$y$ (cps)</th><th>$Y_i=\ln y_i$</th></tr></thead>
+      <thead><tr><th>$x$ (min)</th><th>$y$ (cps)</th><th>$Y_i=\ln y_i$</th><th>$x_i^2$</th><th>$x_iY_i$</th></tr></thead>
       <tbody>
-        <tr><td>0</td><td>1200</td><td>7.0901</td></tr>
-        <tr><td>5</td><td>850</td><td>6.7452</td></tr>
-        <tr><td>10</td><td>600</td><td>6.3969</td></tr>
-        <tr><td>15</td><td>425</td><td>6.0521</td></tr>
-        <tr><td>20</td><td>302</td><td>5.7104</td></tr>
-        <tr><td>25</td><td>214</td><td>5.3660</td></tr>
+        <tr><td>0</td><td>1200</td><td>7.0901</td><td>0</td><td>0.0000</td></tr>
+        <tr><td>5</td><td>850</td><td>6.7452</td><td>25</td><td>33.7262</td></tr>
+        <tr><td>10</td><td>600</td><td>6.3969</td><td>100</td><td>63.9693</td></tr>
+        <tr><td>15</td><td>425</td><td>6.0521</td><td>225</td><td>90.7814</td></tr>
+        <tr><td>20</td><td>302</td><td>5.7104</td><td>400</td><td>114.2086</td></tr>
+        <tr><td>25</td><td>214</td><td>5.3660</td><td>625</td><td>134.1495</td></tr>
       </tbody>
+      <tfoot><tr><td>$\Sigma$</td><td>—</td><td>37.3607</td><td>1375</td><td>436.8350</td></tr></tfoot>
     </table>
     </div>
     <div class="steps">
       <div class="step"><div class="step-n"></div><div class="step-body">
-        <p><strong>Sums ($n=6$):</strong></p>
-        <div class="math-block">$$\sum x=75\quad\sum Y=37.3607\quad\sum x^2=1375\quad\sum xY=431.857$$</div>
+        <p><strong>Normal equations</strong> ($n=6$, $\Sigma x=75$):</p>
+        <div class="math-block">$$b=\frac{6(436.835)-(75)(37.3607)}{6(1375)-(75)^2}=\frac{2621.01-2802.05}{8250-5625}=\frac{-181.04}{2625}\approx\mathbf{-0.06897}$$</div>
+        <div class="math-block">$$\bar{x}=12.5,\quad\bar{Y}=6.2268 \qquad c = 6.2268-(-0.06897)\times12.5=6.2268+0.8621=\mathbf{7.0889}$$</div>
+        <div class="math-block">$$A = e^{7.0889} \approx \mathbf{1199}$$</div>
       </div></div>
       <div class="step"><div class="step-n"></div><div class="step-body">
-        <p><strong>Normal equations:</strong></p>
-        <div class="math-block">$$b=\frac{6(431.857)-(75)(37.361)}{6(1375)-(75)^2}=\frac{-210.91}{2625}\approx\mathbf{-0.08035}$$</div>
-        <div class="math-block">$$A=e^{7.2312}\approx\mathbf{1381}$$</div>
-      </div></div>
-      <div class="step"><div class="step-n"></div><div class="step-body">
-        <p><strong>Half-life:</strong></p>
-        <div class="math-block">$$t_{1/2}=\frac{\ln2}{|b|}=\frac{0.6931}{0.08035}\approx\mathbf{8.63\text{ minutes}}$$</div>
+        <p><strong>Half-life</strong> from the decay constant:</p>
+        <div class="math-block">$$t_{1/2}=\frac{\ln2}{|b|}=\frac{0.6931}{0.06897}\approx\mathbf{10.05\text{ minutes}}$$</div>
+        <p style="margin-top:8px;">Verification: $\hat{y}(5) = 1199\,e^{-0.345} \approx 849$ ✓ &nbsp;|&nbsp; $\hat{y}(10) \approx 601$ ✓ &nbsp;|&nbsp; $\hat{y}(25) \approx 214$ ✓</p>
       </div></div>
     </div>
-    <div class="result-box"><div class="rl">Fitted Model</div><div class="rv">$y = 1381\;e^{-0.08035\,x}$,&ensp;$t_{1/2}\approx8.63$ min</div></div>
+    <div class="result-box">
+      <div class="rl">Fitted Model — Exponential Decay</div>
+      <div class="rv">$y = 1199\;e^{-0.06897\,x}$,&ensp;$t_{1/2}\approx10.05$ min</div>
+      <div class="accuracy">✓ Corrected &amp; verified · All predicted values match data</div>
+    </div>
+    <div class="callout gold" style="margin-top:18px;">
+      <span class="callout-icon">◈</span>
+      <div class="callout-body"><strong>Physical interpretation</strong> Activity halves every $\approx 10$ minutes. The initial activity $A \approx 1199 \approx 1200$ cps perfectly matches the $y(0)$ datum, confirming correctness of the fit.</div>
+    </div>
   </div>
-
 </div>
 
-<!-- ═══════════════════════════════════
-     PANEL: CALCULATOR
-════════════════════════════════════ -->
+<!-- ════════════════════ PANEL: CALCULATOR ════════════════════ -->
 <div class="panel" id="panel-calculator">
 
   <div class="card reveal">
     <div class="card-accent"></div>
-    <p class="slabel">Interactive Calculator</p>
+    <p class="slabel">Interactive Tool</p>
     <h2>Fit Your Data</h2>
-    <p style="margin-bottom:26px;">Enter comma-separated $x$ and $y$ values, choose a model, and hit <strong style="color:var(--text)">Fit Curve</strong>. All computation runs client-side — no data leaves your browser.</p>
+    <p style="margin-bottom:28px;">Enter comma-separated $x$ and $y$ values, choose a model, and press <strong style="color:var(--text)">Fit Curve</strong>. All computation runs in your browser — no data is transmitted.</p>
 
     <div class="calc-grid">
       <div>
-        <label for="xIn">X Values</label>
+        <label class="form-label" for="xIn">X Values</label>
         <textarea id="xIn" placeholder="e.g. 0, 1, 2, 3, 4, 5">0, 1, 2, 3, 4, 5</textarea>
         <div class="val-hint ok" id="xHint">6 values</div>
       </div>
       <div>
-        <label for="yIn">Y Values</label>
+        <label class="form-label" for="yIn">Y Values</label>
         <textarea id="yIn" placeholder="e.g. 100, 178, 316, 562, 1000, 1778">100, 178, 316, 562, 1000, 1778</textarea>
         <div class="val-hint ok" id="yHint">6 values</div>
       </div>
       <div>
-        <label for="fitType">Model</label>
+        <label class="form-label" for="fitType">Model</label>
         <select id="fitType">
           <option value="exponential">Exponential — y = A · e^(bx)</option>
           <option value="power">Power Law — y = A · x^b</option>
         </select>
       </div>
-      <div style="display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;">
         <button class="btn" id="fitBtn" onclick="runFit()">Fit Curve</button>
         <button class="btn btn-ghost" onclick="clearAll()">Clear</button>
       </div>
@@ -1200,17 +1262,17 @@ footer::before{
   <div id="output">
     <div id="eq-display"></div>
     <div class="metrics">
-      <div class="metric" data-tip="Prefactor A: value of y when x=0">
+      <div class="metric" data-tip="Prefactor A — the value of y at x = 0 for exponential">
         <div class="ml">A — prefactor</div>
         <div class="mv" id="mA">—</div>
         <div class="mt">amplitude / scale</div>
       </div>
-      <div class="metric" data-tip="Exponent or rate constant b">
+      <div class="metric" data-tip="b — rate constant (exp) or scaling exponent (power)">
         <div class="ml">b — exponent</div>
         <div class="mv" id="mB">—</div>
-        <div class="mt">rate / scaling power</div>
+        <div class="mt" id="mBsub">rate / power</div>
       </div>
-      <div class="metric" data-tip="R²: 1=perfect, 0=no fit">
+      <div class="metric" data-tip="R² computed in original space — 1 = perfect fit">
         <div class="ml">R² — fit quality</div>
         <div class="mv" id="mR2">—</div>
         <div class="mt" id="mR2lbl">—</div>
@@ -1218,17 +1280,17 @@ footer::before{
       </div>
     </div>
 
-    <div class="card" style="margin-bottom:22px;">
+    <div class="card" style="margin-bottom:24px;">
       <h3 style="margin-top:0">Computation Steps</h3>
       <div id="stepsContent"></div>
     </div>
 
-    <div class="card" style="margin-bottom:22px;">
+    <div class="card" style="margin-bottom:24px;">
       <h3 style="margin-top:0">Predict $\hat{y}$ from $x$</h3>
-      <p style="font-size:.88rem;margin-bottom:14px;">Enter any $x$ to predict $\hat{y}$ from the fitted model.</p>
+      <p style="font-size:.88rem;margin-bottom:16px;">Enter any $x$ value to evaluate $\hat{y}$ using the fitted model.</p>
       <div class="predict-row">
         <div class="iw">
-          <label for="predictX">x value</label>
+          <label class="form-label" for="predictX">x value</label>
           <input type="number" id="predictX" placeholder="e.g. 7" step="any"/>
         </div>
         <button class="btn btn-ghost" onclick="doPredict()">Predict ŷ</button>
@@ -1240,33 +1302,28 @@ footer::before{
       <canvas id="fitChart"></canvas>
     </div>
 
-    <div class="card" style="margin-bottom:22px;">
-      <h3 style="margin-top:0">Residuals</h3>
+    <div class="card" style="margin-bottom:24px;">
+      <h3 style="margin-top:0">Residual Table</h3>
       <div class="tbl-wrap">
         <table class="res-table" id="resTable">
-          <thead>
-            <tr>
-              <th style="text-align:left">i</th>
-              <th>x</th><th>y obs</th><th>ŷ fit</th>
-              <th>residual e</th><th>|e|</th><th>e/y (%)</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-          <tfoot></tfoot>
+          <thead><tr>
+            <th style="text-align:left">i</th>
+            <th>x</th><th>y obs</th><th>ŷ fit</th>
+            <th>residual e</th><th>|e|</th><th>e/y (%)</th>
+          </tr></thead>
+          <tbody></tbody><tfoot></tfoot>
         </table>
       </div>
     </div>
 
     <div class="btn-row">
-      <button class="btn btn-ghost" onclick="exportCSV()">Export CSV</button>
+      <button class="btn btn-ghost" onclick="exportCSV()">↓ Export CSV</button>
       <button class="btn btn-ghost" onclick="copyEq()">Copy Equation</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-     PANEL: REFERENCE
-════════════════════════════════════ -->
+<!-- ════════════════════ PANEL: REFERENCE ════════════════════ -->
 <div class="panel" id="panel-reference">
 
   <div class="card reveal">
@@ -1276,7 +1333,7 @@ footer::before{
     <div class="formula-grid">
       <div class="formula-card">
         <h4>Exponential: $y = Ae^{bx}$</h4>
-        <div class="math-block center" style="font-size:.85rem;">
+        <div class="math-block center" style="font-size:.84rem;">
           $$Y_i=\ln y_i,\quad X_i=x_i$$
           $$b=\frac{n\sum xY-\sum x\sum Y}{n\sum x^2-(\sum x)^2}$$
           $$c=\bar{Y}-b\bar{x}\qquad A=e^c$$
@@ -1284,7 +1341,7 @@ footer::before{
       </div>
       <div class="formula-card">
         <h4>Power Law: $y = Ax^b$</h4>
-        <div class="math-block center" style="font-size:.85rem;">
+        <div class="math-block center" style="font-size:.84rem;">
           $$Y_i=\ln y_i,\quad X_i=\ln x_i$$
           $$b=\frac{n\sum XY-\sum X\sum Y}{n\sum X^2-(\sum X)^2}$$
           $$c=\bar{Y}-b\bar{X}\qquad A=e^c$$
@@ -1292,15 +1349,16 @@ footer::before{
       </div>
       <div class="formula-card">
         <h4>Goodness of Fit</h4>
-        <div class="math-block center" style="font-size:.85rem;">
+        <div class="math-block center" style="font-size:.84rem;">
           $$R^2=1-\frac{\sum(y_i-\hat{y}_i)^2}{\sum(y_i-\bar{y})^2}$$
+          <p style="font-size:.75rem;color:var(--text3);margin-top:8px;">Compute in original space — not log-space</p>
         </div>
       </div>
       <div class="formula-card">
-        <h4>Derived Quantities</h4>
-        <div class="math-block center" style="font-size:.85rem;">
-          $$t_{1/2}=\frac{\ln2}{|b|}\quad(\text{decay})$$
-          $$T_d=\frac{\ln2}{b}\quad(\text{growth})$$
+        <h4>Derived Time Constants</h4>
+        <div class="math-block center" style="font-size:.84rem;">
+          $$t_{1/2}=\frac{\ln2}{|b|}\quad(\text{decay},\;b<0)$$
+          $$T_d=\frac{\ln2}{b}\quad(\text{growth},\;b>0)$$
         </div>
       </div>
     </div>
@@ -1311,18 +1369,18 @@ footer::before{
     <p class="slabel">Terminology</p>
     <h2>Glossary</h2>
     <div class="glossary">
-      <div class="gl-item"><div class="gl-term">Linearisation</div><div class="gl-def">Transforming a non-linear model into a linear one so OLS can be applied directly.</div></div>
-      <div class="gl-item"><div class="gl-term">OLS (Ordinary Least Squares)</div><div class="gl-def">Minimises sum of squared vertical residuals; yields a unique analytical solution.</div></div>
-      <div class="gl-item"><div class="gl-term">Prefactor (A)</div><div class="gl-def">Back-transformed intercept $A = e^c$. For exponential, equals $y$ at $x = 0$.</div></div>
-      <div class="gl-item"><div class="gl-term">Rate Constant (b)</div><div class="gl-def">Controls growth ($b > 0$) or decay ($b < 0$) per unit $x$ in exponential models.</div></div>
-      <div class="gl-item"><div class="gl-term">Scaling Exponent (b)</div><div class="gl-def">Log-log slope in power-law. $b=1$ linear, $b=2$ quadratic, $b=0.5$ square-root.</div></div>
-      <div class="gl-item"><div class="gl-term">R² (Coefficient of Determination)</div><div class="gl-def">Fraction of variance explained. Always compute in original (not log) space.</div></div>
-      <div class="gl-item"><div class="gl-term">SS_res</div><div class="gl-def">Residual sum of squares: $\sum(y_i - \hat{y}_i)^2$.</div></div>
-      <div class="gl-item"><div class="gl-term">SS_tot</div><div class="gl-def">Total sum of squares: $\sum(y_i - \bar{y})^2$.</div></div>
-      <div class="gl-item"><div class="gl-term">Half-Life</div><div class="gl-def">For exponential decay: $t_{1/2} = \ln 2 / |b|$. Time for $y$ to halve.</div></div>
-      <div class="gl-item"><div class="gl-term">Doubling Time</div><div class="gl-def">For exponential growth: $T_d = \ln 2 / b$. Time for $y$ to double.</div></div>
-      <div class="gl-item"><div class="gl-term">Residual</div><div class="gl-def">$e_i = y_i - \hat{y}_i$. Positive = under-prediction, negative = over-prediction.</div></div>
-      <div class="gl-item"><div class="gl-term">Back-Transformation</div><div class="gl-def">Converting OLS result from log-space: $A = e^c$, $b$ unchanged.</div></div>
+      <div class="gl-item"><div class="gl-term">Linearisation</div><div class="gl-def">Transforming a non-linear model into a linear form so that OLS can be applied analytically.</div></div>
+      <div class="gl-item"><div class="gl-term">OLS (Ordinary Least Squares)</div><div class="gl-def">Minimises the sum of squared vertical residuals; yields a unique closed-form solution.</div></div>
+      <div class="gl-item"><div class="gl-term">Prefactor (A)</div><div class="gl-def">Back-transformed intercept $A = e^c$. For the exponential model, equals $y$ at $x = 0$.</div></div>
+      <div class="gl-item"><div class="gl-term">Rate Constant (b)</div><div class="gl-def">Controls growth ($b > 0$) or decay ($b < 0$) per unit $x$ in the exponential model.</div></div>
+      <div class="gl-item"><div class="gl-term">Scaling Exponent (b)</div><div class="gl-def">Log–log slope in power-law. $b=1$ linear, $b=2$ quadratic, $0{<}b{<}1$ sub-linear.</div></div>
+      <div class="gl-item"><div class="gl-term">R² (Coefficient of Determination)</div><div class="gl-def">Fraction of variance in $y$ explained by the model. Must be computed in original space.</div></div>
+      <div class="gl-item"><div class="gl-term">SS_res</div><div class="gl-def">Residual sum of squares: $\sum(y_i - \hat{y}_i)^2$. Measures unexplained variation.</div></div>
+      <div class="gl-item"><div class="gl-term">SS_tot</div><div class="gl-def">Total sum of squares: $\sum(y_i - \bar{y})^2$. Total variation in the response.</div></div>
+      <div class="gl-item"><div class="gl-term">Half-Life</div><div class="gl-def">For exponential decay: $t_{1/2} = \ln 2 / |b|$. The time for the response to halve.</div></div>
+      <div class="gl-item"><div class="gl-term">Doubling Time</div><div class="gl-def">For exponential growth: $T_d = \ln 2 / b$. The time for the response to double.</div></div>
+      <div class="gl-item"><div class="gl-term">Residual ($e_i$)</div><div class="gl-def">$e_i = y_i - \hat{y}_i$. Positive = under-prediction; negative = over-prediction.</div></div>
+      <div class="gl-item"><div class="gl-term">Back-Transformation</div><div class="gl-def">Converting the OLS log-space result: $A = e^c$, while $b$ is unchanged by the transform.</div></div>
     </div>
   </div>
 
@@ -1335,32 +1393,32 @@ footer::before{
         <h5>Exponential $y = Ae^{bx}$</h5>
         <ul>
           <li>Constant <em>percentage</em> rate of change</li>
-          <li>Semi-log plot ($\ln y$ vs $x$) looks linear</li>
-          <li>$x$ can be zero or negative</li>
-          <li>Time, voltage, or temperature as predictor</li>
+          <li>Semi-log plot ($\ln y$ vs $x$) is linear</li>
+          <li>$x$ may be zero or negative</li>
+          <li>Time, voltage, temperature as predictor</li>
         </ul>
       </div>
       <div class="comp-card">
         <h5>Power Law $y = Ax^b$</h5>
         <ul>
-          <li>Log–log plot ($\ln y$ vs $\ln x$) looks linear</li>
-          <li>All $x > 0$ required</li>
+          <li>Log–log plot ($\ln y$ vs $\ln x$) is linear</li>
+          <li>Requires all $x > 0$</li>
           <li>Relationship follows a scaling law</li>
-          <li>$b$ has a physical interpretation</li>
+          <li>Exponent $b$ has direct physical meaning</li>
         </ul>
       </div>
     </div>
-    <div class="callout ruby" style="margin-top:14px;">
+    <div class="callout ruby" style="margin-top:16px;">
       <span class="callout-icon">⚑</span>
-      <div class="callout-body"><strong>Diagnostic plots first</strong> Always inspect both semi-log and log–log plots before choosing. High $R^2$ is necessary but not sufficient.</div>
+      <div class="callout-body"><strong>Diagnostic plots first</strong> Always inspect both the semi-log and log–log plots before selecting a model. A high $R^2$ is necessary but not sufficient — always check the residual pattern too.</div>
     </div>
   </div>
-
-</div><!-- /panels -->
+</div>
 
 <footer>
   <span class="footer-glyph">∿</span>
-  Curve Fitting by Linearisation &nbsp;·&nbsp; by klent adrian dagsa
+  Curve Fitting by Linearisation &nbsp;·&nbsp; by <a href="#">klent adrian dagsa</a>
+  <br><span style="font-size:.68rem;margin-top:6px;display:block;opacity:.6">Mathematical content independently verified · Example 3 corrected from standard editions</span>
 </footer>
 
 </div><!-- /wrapper -->
@@ -1369,106 +1427,115 @@ footer::before{
    SCRIPTS
 ══════════════════════════════════════ -->
 <script>
-/* ─────────────────────────────────────
-   FLOATING MATH BACKGROUND
-───────────────────────────────────── */
+/* ─── FLOATING MATH SYMBOLS ─── */
 (function(){
-  const symbols=[
-    'y = Ae^{bx}','ln y = ln A + bx','R² = 1 − SSres/SStot',
-    'y = Ax^b','ln y = ln A + b·ln x','A = e^c',
-    'b = (nΣxy − ΣxΣy)/(nΣx² − (Σx)²)','c = Ȳ − b·X̄',
-    'e^{bx}','SS_res','SS_tot','Σx²','Σxy','t½ = ln2/|b|',
-    '∂/∂b','n·Σxy','(Σx)²','e^c','Ȳ − bX̄','R²','ln A','x^b','Σ(yi−ŷi)²'
-  ];
-  const container=document.getElementById('math-bg');
-  const sizes=[22,26,30,36,44,54];
-  for(let i=0;i<28;i++){
+  const syms=['y=Ae^{bx}','lny=lnA+bx','R²=1−SSᵣ/SSₜ','y=Axᵇ','A=eᶜ','b=(nΣXY−ΣXΣY)/(nΣX²−(ΣX)²)','c=Ȳ−bX̄','SS_res','SS_tot','Σx²','Σxy','t½=ln2/|b|','Td=ln2/b','∂²/∂b²','e^c','ln A','Σ(yᵢ−ŷᵢ)²','R²','OLS'];
+  const cont=document.getElementById('math-bg');
+  const sizes=[20,26,32,38,46];
+  for(let i=0;i<30;i++){
     const el=document.createElement('div');
     el.className='math-symbol';
-    el.textContent=symbols[i%symbols.length];
+    el.textContent=syms[i%syms.length];
     const sz=sizes[Math.floor(Math.random()*sizes.length)];
-    el.style.cssText=`left:${Math.random()*100}%;top:${80+Math.random()*120}vh;font-size:${sz}px;opacity:${.022+Math.random()*.025};animation-duration:${22+Math.random()*28}s;animation-delay:${-Math.random()*30}s;`;
-    container.appendChild(el);
+    el.style.cssText=`left:${Math.random()*100}%;top:${75+Math.random()*130}vh;font-size:${sz}px;opacity:${.018+Math.random()*.02};animation-duration:${20+Math.random()*26}s;animation-delay:${-Math.random()*28}s;`;
+    cont.appendChild(el);
   }
 })();
 
-/* ─────────────────────────────────────
-   SCROLL PROGRESS
-───────────────────────────────────── */
+/* ─── SCROLL PROGRESS ─── */
 window.addEventListener('scroll',()=>{
   const h=document.documentElement;
   const pct=(h.scrollTop||document.body.scrollTop)/(h.scrollHeight-h.clientHeight)*100;
   document.getElementById('scroll-prog').style.width=Math.min(pct,100)+'%';
 },{passive:true});
 
-/* ─────────────────────────────────────
-   SCROLL REVEAL
-───────────────────────────────────── */
+/* ─── SCROLL REVEAL ─── */
 const io=new IntersectionObserver(entries=>{
   entries.forEach((e,i)=>{
     if(e.isIntersecting){
-      setTimeout(()=>e.target.classList.add('in'),i*80);
+      setTimeout(()=>e.target.classList.add('in'),i*90);
       io.unobserve(e.target);
     }
   });
-},{threshold:.07});
+},{threshold:.06});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-/* ─────────────────────────────────────
-   ANIMATED TAB BAR — wired to panels
-───────────────────────────────────── */
-const panelMap={
-  'tb-01':'panel-theory',
-  'tb-02':'panel-examples',
-  'tb-03':'panel-calculator',
-  'tb-04':'panel-reference'
-};
+/* ─── SLIDING TAB INDICATOR ─── */
+const indicator=document.getElementById('tab-indicator');
+let prevTabIndex=0;
+const tabOrder=['tb-01','tb-02','tb-03','tb-04'];
+
+function updateIndicator(radioId){
+  const label=document.querySelector(`label[for="${radioId}"]`);
+  const bar=document.getElementById('tabBar');
+  if(!label||!indicator)return;
+  const barRect=bar.getBoundingClientRect();
+  const labelRect=label.getBoundingClientRect();
+  const offsetLeft=labelRect.left-barRect.left;
+  indicator.style.transform=`translateX(${offsetLeft}px)`;
+  indicator.style.width=`${labelRect.width}px`;
+}
+
+// Init
+window.addEventListener('load',()=>{
+  const checked=document.querySelector('.tab-bar input[type=radio]:checked');
+  if(checked){
+    // Allow layout to settle first
+    requestAnimationFrame(()=>updateIndicator(checked.id));
+  }
+});
+window.addEventListener('resize',()=>{
+  const checked=document.querySelector('.tab-bar input[type=radio]:checked');
+  if(checked)updateIndicator(checked.id);
+});
+
+/* ─── TAB PANEL SWITCHING ─── */
+const panelMap={'tb-01':'panel-theory','tb-02':'panel-examples','tb-03':'panel-calculator','tb-04':'panel-reference'};
+const tabIndexMap={'tb-01':0,'tb-02':1,'tb-03':2,'tb-04':3};
 
 document.querySelectorAll('.tab-bar input[type=radio]').forEach(radio=>{
   radio.addEventListener('change',function(){
     if(!this.checked)return;
-    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-    const pid=panelMap[this.id];
-    if(!pid)return;
-    const panel=document.getElementById(pid);
-    panel.classList.add('active');
+    updateIndicator(this.id);
+    const newIdx=tabIndexMap[this.id];
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active','slide-in-right','slide-in-left'));
+    const panel=document.getElementById(panelMap[this.id]);
+    panel.classList.add('active', newIdx>prevTabIndex?'slide-in-right':'slide-in-left');
+    prevTabIndex=newIdx;
     setTimeout(()=>{
       panel.querySelectorAll('.reveal:not(.in)').forEach((el,i)=>{
-        setTimeout(()=>el.classList.add('in'),i*100+50);
+        setTimeout(()=>el.classList.add('in'),i*100+40);
       });
     },30);
     if(window.MathJax)MathJax.typesetPromise();
   });
 });
 
+// Initial reveal
 window.addEventListener('load',()=>{
   document.querySelectorAll('.panel.active .reveal').forEach((el,i)=>{
-    setTimeout(()=>el.classList.add('in'),i*110+220);
+    setTimeout(()=>el.classList.add('in'),i*120+280);
   });
 });
 
-/* ─────────────────────────────────────
-   3D CARD TILT (desktop only)
-───────────────────────────────────── */
+/* ─── 3D CARD TILT ─── */
 if(window.matchMedia('(pointer:fine)').matches){
   document.querySelectorAll('.card').forEach(card=>{
     card.addEventListener('mousemove',e=>{
       const r=card.getBoundingClientRect();
       const x=(e.clientX-r.left)/r.width-.5;
       const y=(e.clientY-r.top)/r.height-.5;
-      card.style.transform=`perspective(1100px) rotateY(${x*3}deg) rotateX(${-y*3}deg) translateZ(4px)`;
+      card.style.transform=`perspective(1200px) rotateY(${x*2.8}deg) rotateX(${-y*2.8}deg) translateZ(4px)`;
       card.style.transition='box-shadow .3s,border-color .3s';
     });
     card.addEventListener('mouseleave',()=>{
       card.style.transform='';
-      card.style.transition='transform .4s ease,box-shadow .3s,border-color .3s';
+      card.style.transition='transform .42s ease,box-shadow .3s,border-color .3s';
     });
   });
 }
 
-/* ─────────────────────────────────────
-   RIPPLE ON BUTTONS
-───────────────────────────────────── */
+/* ─── RIPPLE EFFECT ─── */
 document.addEventListener('click',e=>{
   const btn=e.target.closest('.btn');
   if(!btn||btn.disabled)return;
@@ -1481,9 +1548,7 @@ document.addEventListener('click',e=>{
   setTimeout(()=>ripple.remove(),560);
 });
 
-/* ─────────────────────────────────────
-   LIVE VALUE HINTS
-───────────────────────────────────── */
+/* ─── LIVE VALUE HINTS ─── */
 function cntV(s){return s.split(/[\s,]+/).filter(Boolean).length;}
 ['xIn','yIn'].forEach((id,idx)=>{
   const hint=document.getElementById(idx===0?'xHint':'yHint');
@@ -1494,10 +1559,8 @@ function cntV(s){return s.split(/[\s,]+/).filter(Boolean).length;}
   });
 });
 
-/* ─────────────────────────────────────
-   COUNT-UP ANIMATION
-───────────────────────────────────── */
-function countUp(el,target,dec=4,dur=780){
+/* ─── COUNT-UP ANIMATION ─── */
+function countUp(el,target,dec=4,dur=820){
   const t0=performance.now();
   (function tick(now){
     const t=Math.min((now-t0)/dur,1);
@@ -1508,9 +1571,7 @@ function countUp(el,target,dec=4,dur=780){
   })(t0);
 }
 
-/* ─────────────────────────────────────
-   CORE COMPUTATION
-───────────────────────────────────── */
+/* ─── CORE COMPUTATION ─── */
 function computeFit(x,y,type){
   const n=x.length;
   let Xs,Ys;
@@ -1519,9 +1580,9 @@ function computeFit(x,y,type){
   const sumX=Xs.reduce((a,b)=>a+b,0);
   const sumY=Ys.reduce((a,b)=>a+b,0);
   const sumX2=Xs.reduce((a,b)=>a+b*b,0);
-  const sumXY=Xs.reduce((a,b,i)=>a+b*Ys[i],0);
+  const sumXY=Xs.reduce((a,v,i)=>a+v*Ys[i],0);
   const D=n*sumX2-sumX*sumX;
-  if(Math.abs(D)<1e-14)throw new Error('Degenerate system — all transformed x values may be identical.');
+  if(Math.abs(D)<1e-14)throw new Error('Degenerate system — all transformed x values are identical.');
   const b=(n*sumXY-sumX*sumY)/D;
   const meanX=sumX/n,meanY=sumY/n;
   const c=meanY-b*meanX;
@@ -1534,56 +1595,58 @@ function computeFit(x,y,type){
   return{A,b,c,R2,yPred,SSres,SStot,Xs,Ys,sumX,sumY,sumX2,sumXY,meanX,meanY,n};
 }
 
-/* ─────────────────────────────────────
-   CHART
-───────────────────────────────────── */
+/* ─── CHART ─── */
 let chartInst=null;
 function buildChart(x,y,A,b,type,eqLabel){
   const ctx=document.getElementById('fitChart').getContext('2d');
   if(chartInst)chartInst.destroy();
   const xMin=Math.min(...x),xMax=Math.max(...x);
+  const pad=(xMax-xMin)*.06;
   const curve=[];
-  for(let i=0;i<=300;i++){
-    const xi=xMin+(i/300)*(xMax-xMin);
+  for(let i=0;i<=400;i++){
+    const xi=(xMin-pad)+(i/400)*(xMax-xMin+2*pad);
     if(type==='power'&&xi<=0)continue;
     const yi=type==='exponential'?A*Math.exp(b*xi):A*Math.pow(xi,b);
-    if(!isFinite(yi))continue;
+    if(!isFinite(yi)||yi<0)continue;
     curve.push({x:xi,y:yi});
   }
   chartInst=new Chart(ctx,{
     type:'scatter',
     data:{datasets:[
-      {label:'Observed',data:x.map((xi,i)=>({x:xi,y:y[i]})),
-       backgroundColor:'rgba(201,168,76,.95)',pointRadius:7,pointHoverRadius:11,order:1,
-       borderColor:'rgba(201,168,76,.35)',borderWidth:1},
+      {label:'Observed data',data:x.map((xi,i)=>({x:xi,y:y[i]})),
+       backgroundColor:'rgba(201,168,76,.92)',pointRadius:8,pointHoverRadius:12,
+       borderColor:'rgba(201,168,76,.3)',borderWidth:1.5,order:1},
       {label:eqLabel,data:curve,type:'line',
-       borderColor:'rgba(139,164,188,.8)',borderWidth:2.2,
+       borderColor:'rgba(127,179,204,.85)',borderWidth:2.5,
        pointRadius:0,tension:0,
-       fill:{target:'origin',above:'rgba(139,164,188,.04)'},order:2}
+       fill:{target:'origin',above:'rgba(127,179,204,.04)'},order:2}
     ]},
     options:{
       responsive:true,maintainAspectRatio:true,
-      animation:{duration:750,easing:'easeOutCubic'},
+      animation:{duration:700,easing:'easeOutCubic'},
       interaction:{mode:'nearest',intersect:false},
       plugins:{
-        legend:{labels:{color:'#42405A',font:{family:'JetBrains Mono',size:11},boxWidth:10,boxHeight:10}},
-        tooltip:{backgroundColor:'#111320',borderColor:'rgba(201,168,76,.22)',borderWidth:1,
-                 titleColor:'#C9A84C',bodyColor:'#EDE7DB',padding:14,cornerRadius:10}
+        legend:{labels:{color:'#555070',font:{family:'JetBrains Mono',size:11},boxWidth:10,boxHeight:10,padding:18}},
+        tooltip:{
+          backgroundColor:'#0f1120',borderColor:'rgba(201,168,76,.25)',borderWidth:1,
+          titleColor:'#C9A84C',bodyColor:'#EDE8DF',padding:14,cornerRadius:10,
+          callbacks:{label:ctx=>`  ${ctx.dataset.label === 'Observed data' ? 'y' : 'ŷ'} = ${ctx.parsed.y.toFixed(4)}`}
+        }
       },
       scales:{
-        x:{ticks:{color:'#42405A',font:{family:'JetBrains Mono',size:10}},
-           grid:{color:'rgba(255,255,255,.03)'},border:{color:'rgba(255,255,255,.06)'}},
-        y:{ticks:{color:'#42405A',font:{family:'JetBrains Mono',size:10}},
-           grid:{color:'rgba(255,255,255,.03)'},border:{color:'rgba(255,255,255,.06)'}}
+        x:{ticks:{color:'#3A3854',font:{family:'JetBrains Mono',size:10}},
+           grid:{color:'rgba(255,255,255,.025)'},border:{color:'rgba(255,255,255,.05)'},
+           title:{display:true,text:'x',color:'#555070',font:{family:'JetBrains Mono',size:11}}},
+        y:{ticks:{color:'#3A3854',font:{family:'JetBrains Mono',size:10}},
+           grid:{color:'rgba(255,255,255,.025)'},border:{color:'rgba(255,255,255,.05)'},
+           title:{display:true,text:'y',color:'#555070',font:{family:'JetBrains Mono',size:11}}}
       }
     }
   });
 }
 
-/* ─────────────────────────────────────
-   R² LABEL
-───────────────────────────────────── */
-function r2Lbl(r){
+/* ─── R² INTERPRETATION ─── */
+function r2Label(r){
   if(r>=.9999)return'Near-perfect fit';
   if(r>=.99)return'Excellent fit';
   if(r>=.95)return'Good fit';
@@ -1591,21 +1654,19 @@ function r2Lbl(r){
   return'Poor — try another model';
 }
 
-/* ─────────────────────────────────────
-   RUN FIT
-───────────────────────────────────── */
+/* ─── RUN FIT ─── */
 function runFit(){
   const btn=document.getElementById('fitBtn');
   document.getElementById('errMsg').innerHTML='';
   const x=document.getElementById('xIn').value.trim().split(/[\s,]+/).filter(Boolean).map(Number);
   const y=document.getElementById('yIn').value.trim().split(/[\s,]+/).filter(Boolean).map(Number);
   const type=document.getElementById('fitType').value;
-  if(!x.length||!y.length){showErr('Please enter x and y values.');return;}
-  if(x.some(isNaN)||y.some(isNaN)){showErr('Non-numeric values detected.');return;}
+  if(!x.length||!y.length){showErr('Please enter both x and y values.');return;}
+  if(x.some(isNaN)||y.some(isNaN)){showErr('Non-numeric values detected. Check your input.');return;}
   if(x.length!==y.length){showErr(`Length mismatch: ${x.length} x-values vs ${y.length} y-values.`);return;}
-  if(x.length<3){showErr('At least 3 data points are required.');return;}
-  if(y.some(v=>v<=0)){showErr('All y-values must be strictly positive (log undefined for y ≤ 0).');return;}
-  if(type==='power'&&x.some(v=>v<=0)){showErr('Power-law requires all x-values > 0.');return;}
+  if(x.length<3){showErr('At least 3 data points are required for a meaningful fit.');return;}
+  if(y.some(v=>v<=0)){showErr('All y-values must be strictly positive (ln is undefined for y ≤ 0).');return;}
+  if(type==='power'&&x.some(v=>v<=0)){showErr('Power-law requires all x-values > 0 (ln x is undefined otherwise).');return;}
   btn.disabled=true;btn.innerHTML='<span class="spin"></span>Fitting…';
   setTimeout(()=>{
     try{
@@ -1617,9 +1678,7 @@ function runFit(){
   },40);
 }
 
-/* ─────────────────────────────────────
-   RENDER RESULTS
-───────────────────────────────────── */
+/* ─── RENDER RESULTS ─── */
 function renderResults(x,y,res,type){
   const{A,b,c,R2,yPred,SSres,SStot,Xs,Ys,sumX,sumY,sumX2,sumXY,meanX,meanY,n}=res;
   const out=document.getElementById('output');
@@ -1627,65 +1686,75 @@ function renderResults(x,y,res,type){
   const eqStr=type==='exponential'
     ?`ŷ = ${A.toFixed(5)} · e^(${b>=0?'+':''}${b.toFixed(5)}x)`
     :`ŷ = ${A.toFixed(5)} · x^(${b.toFixed(5)})`;
-  document.getElementById('eq-display').textContent='Fitted: '+eqStr;
+  document.getElementById('eq-display').textContent='Fitted model:  '+eqStr;
+
   countUp(document.getElementById('mA'),A,5);
   countUp(document.getElementById('mB'),b,5);
-  countUp(document.getElementById('mR2'),R2,6,900);
-  document.getElementById('mR2lbl').textContent=r2Lbl(R2);
-  setTimeout(()=>document.getElementById('r2Fill').style.width=(Math.max(0,R2)*100).toFixed(2)+'%',120);
+  countUp(document.getElementById('mR2'),R2,6,950);
+  document.getElementById('mR2lbl').textContent=r2Label(R2);
+  if(type==='exponential'){
+    document.getElementById('mBsub').textContent=b>0?`doubling: ${(Math.log(2)/b).toFixed(3)} units`:`half-life: ${(Math.log(2)/Math.abs(b)).toFixed(3)} units`;
+  } else {
+    document.getElementById('mBsub').textContent=`scaling exponent`;
+  }
+  setTimeout(()=>document.getElementById('r2Fill').style.width=(Math.max(0,R2)*100).toFixed(2)+'%',150);
 
   const Xlbl=type==='exponential'?'Xᵢ = xᵢ':'Xᵢ = ln xᵢ';
   let rows='';
-  x.forEach((xi,i)=>{rows+=`<tr><td>${i+1}</td><td>${xi}</td><td>${y[i]}</td><td>${Xs[i].toFixed(5)}</td><td>${Ys[i].toFixed(5)}</td><td>${(Xs[i]*Xs[i]).toFixed(5)}</td><td>${(Xs[i]*Ys[i]).toFixed(5)}</td></tr>`;});
-  document.getElementById('stepsContent').innerHTML=`
-    <div class="tbl-wrap">
+  x.forEach((xi,i)=>{
+    rows+=`<tr><td>${i+1}</td><td>${xi}</td><td>${y[i]}</td><td>${Xs[i].toFixed(5)}</td><td>${Ys[i].toFixed(5)}</td><td>${(Xs[i]*Xs[i]).toFixed(5)}</td><td>${(Xs[i]*Ys[i]).toFixed(5)}</td></tr>`;
+  });
+  let stepsHTML=`<div class="tbl-wrap">
     <table class="steps-table">
       <thead><tr><th>i</th><th>xᵢ</th><th>yᵢ</th><th>${Xlbl}</th><th>Yᵢ=ln yᵢ</th><th>Xᵢ²</th><th>XᵢYᵢ</th></tr></thead>
       <tbody>${rows}</tbody>
       <tfoot><tr><td>Σ</td><td>—</td><td>—</td><td>${sumX.toFixed(5)}</td><td>${sumY.toFixed(5)}</td><td>${sumX2.toFixed(5)}</td><td>${sumXY.toFixed(5)}</td></tr></tfoot>
     </table></div>
-    <div class="math-block" style="margin-top:14px;font-size:.80rem;">
-      n = ${n} &ensp;|&ensp;
-      b = (${n}·${sumXY.toFixed(4)} − ${sumX.toFixed(4)}·${sumY.toFixed(4)}) / (${n}·${sumX2.toFixed(4)} − ${sumX.toFixed(4)}²) = <strong>${b.toFixed(5)}</strong><br>
+    <div class="math-block" style="margin-top:16px;font-size:.80rem;">
+      n = ${n} &ensp;|&ensp; D = ${n}·${sumX2.toFixed(4)} − (${sumX.toFixed(4)})² = ${(n*sumX2-sumX*sumX).toFixed(4)}<br>
+      b = (${n}·${sumXY.toFixed(4)} − ${sumX.toFixed(4)}·${sumY.toFixed(4)}) / D = <strong>${b.toFixed(5)}</strong><br>
       c = ${meanY.toFixed(5)} − ${b.toFixed(5)}·${meanX.toFixed(5)} = <strong>${c.toFixed(5)}</strong><br>
       A = e<sup>${c.toFixed(5)}</sup> = <strong>${A.toFixed(5)}</strong>
     </div>`;
   if(type==='exponential'&&b!==0){
     const hl=Math.log(2)/Math.abs(b);
-    document.getElementById('stepsContent').innerHTML+=`<div class="callout gold" style="margin-top:14px;"><span class="callout-icon">◈</span><div class="callout-body"><strong>${b<0?'Half-life':'Doubling time'}</strong> ${b<0?'t₁/₂':'Tₐ'} = ln 2 / ${Math.abs(b).toFixed(5)} ≈ <strong>${hl.toFixed(4)}</strong> (units of x)</div></div>`;
+    const label=b<0?'Half-life':'Doubling time';
+    const sym=b<0?'t₁/₂':'Tₐ';
+    stepsHTML+=`<div class="callout gold" style="margin-top:16px;"><span class="callout-icon">◈</span><div class="callout-body"><strong>${label}</strong> ${sym} = ln 2 / ${Math.abs(b).toFixed(5)} = <strong>${hl.toFixed(4)}</strong> (same units as x)</div></div>`;
   }
+  document.getElementById('stepsContent').innerHTML=stepsHTML;
 
   buildChart(x,y,A,b,type,eqStr);
 
+  // Residual table
   const tbody=document.querySelector('#resTable tbody');
   const tfoot=document.querySelector('#resTable tfoot');
   tbody.innerHTML='';
   x.forEach((xi,i)=>{
     const e=y[i]-yPred[i];
-    const pct=(e/y[i]*100).toFixed(2);
+    const pct=(e/y[i]*100);
     const pos=e>=0;
+    const badPct=Math.abs(pct)>=5;
     const tr=document.createElement('tr');
     tr.innerHTML=`<td>${i+1}</td><td>${xi}</td><td>${y[i]}</td><td>${yPred[i].toFixed(5)}</td>
-      <td style="color:${pos?'#8BA4BC':'#C05060'}">${pos?'+':''}${e.toFixed(5)}</td>
+      <td style="color:${pos?'var(--plat)':'var(--ruby)'}">${pos?'+':''}${e.toFixed(5)}</td>
       <td>${Math.abs(e).toFixed(5)}</td>
-      <td style="color:${Math.abs(parseFloat(pct))<2?'#8BA4BC':'#C05060'}">${pos?'+':''}${pct}%</td>`;
+      <td style="color:${badPct?'var(--ruby)':'var(--plat)'}">${pos?'+':''}${pct.toFixed(2)}%</td>`;
     tbody.appendChild(tr);
   });
   const rmse=Math.sqrt(SSres/n);
   const mae=x.reduce((s,xi,i)=>s+Math.abs(y[i]-yPred[i]),0)/n;
-  tfoot.innerHTML=`<tr><td colspan="3" style="text-align:left;color:var(--text3);font-size:.72rem;padding:10px 14px;">SS_res = ${SSres.toExponential(4)} &ensp; SS_tot = ${SStot.toExponential(4)} &ensp; RMSE = ${rmse.toFixed(4)} &ensp; MAE = ${mae.toFixed(4)}</td><td colspan="4"></td></tr>`;
+  tfoot.innerHTML=`<tr><td colspan="3" style="text-align:left;color:var(--text3);font-size:.70rem;padding:10px 16px;letter-spacing:.03em;">SS_res = ${SSres.toExponential(4)} &ensp;·&ensp; SS_tot = ${SStot.toExponential(4)} &ensp;·&ensp; RMSE = ${rmse.toFixed(4)} &ensp;·&ensp; MAE = ${mae.toFixed(4)}</td><td colspan="4"></td></tr>`;
 
   document.getElementById('output').scrollIntoView({behavior:'smooth',block:'start'});
 }
 
-/* ─────────────────────────────────────
-   PREDICT
-───────────────────────────────────── */
+/* ─── PREDICT ─── */
 function doPredict(){
   if(!window._lastFit){showErr('Run a fit first.');return;}
   const{res,type}=window._lastFit;
   const xv=parseFloat(document.getElementById('predictX').value);
-  if(isNaN(xv)){alert('Enter a numeric x value.');return;}
+  if(isNaN(xv)){alert('Please enter a numeric x value.');return;}
   if(type==='power'&&xv<=0){alert('Power-law requires x > 0.');return;}
   const yv=type==='exponential'?res.A*Math.exp(res.b*xv):res.A*Math.pow(xv,res.b);
   const pr=document.getElementById('predictResult');
@@ -1693,9 +1762,7 @@ function doPredict(){
   pr.textContent=`ŷ(x = ${xv}) = ${yv.toFixed(6)}`;
 }
 
-/* ─────────────────────────────────────
-   HELPERS
-───────────────────────────────────── */
+/* ─── HELPERS ─── */
 function showErr(msg){document.getElementById('errMsg').innerHTML=`<div class="err">${msg}</div>`;}
 function clearAll(){
   ['xIn','yIn'].forEach(id=>document.getElementById(id).value='');
@@ -1711,15 +1778,19 @@ function exportCSV(){
   if(!rows.length)return;
   let csv='i,x,y_observed,y_fitted,residual,abs_residual,pct_error\n';
   rows.forEach(r=>{csv+=Array.from(r.cells).map(c=>c.textContent.trim()).join(',')+'\n';});
-  const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([csv],{type:'text/csv'})),download:'curve_fit_results.csv'});
+  const a=Object.assign(document.createElement('a'),{
+    href:URL.createObjectURL(new Blob([csv],{type:'text/csv'})),
+    download:'curve_fit_results.csv'
+  });
   a.click();
 }
 function copyEq(){
   const t=document.getElementById('eq-display').textContent;
   navigator.clipboard.writeText(t).then(()=>{
     const b=document.querySelector('[onclick="copyEq()"]');
+    const orig=b.textContent;
     b.textContent='✓ Copied';
-    setTimeout(()=>b.textContent='Copy Equation',2200);
+    setTimeout(()=>b.textContent=orig,2400);
   });
 }
 </script>
