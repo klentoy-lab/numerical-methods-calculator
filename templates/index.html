@@ -8,7 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:opsz,wght9..40,300;9..40,400;9..40,500&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
 <style>
 :root{
   --bg:#05060F;--bg2:#080A16;--s1:#0C0E1C;--s2:#121525;--s3:#191C30;--s4:#1F2338;
@@ -86,7 +86,6 @@ body::before{
 .wrapper{max-width:1080px;margin:0 auto;padding:0 22px 160px;position:relative;z-index:1;}
 @media(min-width:768px){.wrapper{padding:0 48px 160px;}}
 
-
 header{padding:100px 0 76px;border-bottom:1px solid var(--bdr);margin-bottom:60px;position:relative;}
 @media(min-width:768px){header{padding:128px 0 84px;margin-bottom:72px;}}
 header::after{content:'';position:absolute;top:32px;right:-20px;width:260px;height:260px;background:radial-gradient(ellipse at top right,rgba(201,168,76,.07) 0%,transparent 65%);pointer-events:none;}
@@ -108,7 +107,6 @@ header h1 em::after{content:'';position:absolute;bottom:-5px;left:0;right:0;heig
 .badge-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;opacity:.7;}
 @keyframes rise{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
 
-
 .tabs-outer{display:flex;justify-content:center;margin-bottom:56px;}
 
 .tab-bar{
@@ -127,7 +125,6 @@ header h1 em::after{content:'';position:absolute;bottom:-5px;left:0;right:0;heig
   overflow:hidden;
 }
 .tab-bar::before{content:'';position:absolute;inset:0;border-radius:inherit;background:linear-gradient(180deg,rgba(255,255,255,.035) 0%,transparent 55%);pointer-events:none;}
-
 
 #tab-indicator{
   position:absolute;
@@ -164,7 +161,6 @@ header h1 em::after{content:'';position:absolute;bottom:-5px;left:0;right:0;heig
 .tab-bar label:hover{transform:scale(1.04);}
 .tab-bar label:active{transform:scale(.96);}
 
-
 .tab-bar label .tab-icon{
   width:20px;height:20px;
   display:flex;align-items:center;justify-content:center;
@@ -183,7 +179,6 @@ header h1 em::after{content:'';position:absolute;bottom:-5px;left:0;right:0;heig
   filter:drop-shadow(0 0 6px rgba(201,168,76,.5));
 }
 
-
 .tab-bar label .tab-lbl{
   font-family:var(--ff-mono);font-size:.50rem;
   letter-spacing:.16em;text-transform:uppercase;
@@ -192,7 +187,6 @@ header h1 em::after{content:'';position:absolute;bottom:-5px;left:0;right:0;heig
 }
 .tab-bar input:checked + label .tab-lbl{color:var(--gold);}
 
-
 .panel{display:none;}
 .panel.active{display:block;}
 .panel.slide-in-right{animation:slideInRight .38s var(--ease) both;}
@@ -200,10 +194,8 @@ header h1 em::after{content:'';position:absolute;bottom:-5px;left:0;right:0;heig
 @keyframes slideInRight{from{opacity:0;transform:translateX(28px);}to{opacity:1;transform:translateX(0);}}
 @keyframes slideInLeft{from{opacity:0;transform:translateX(-28px);}to{opacity:1;transform:translateX(0);}}
 
-
 .reveal{opacity:0;transform:translateY(28px);transition:opacity .58s ease,transform .58s ease;}
 .reveal.in{opacity:1;transform:translateY(0);}
-
 
 .slabel{font-family:var(--ff-mono);font-size:.58rem;letter-spacing:.32em;text-transform:uppercase;color:var(--plat);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
 .slabel::after{content:'';flex:1;max-width:80px;height:1px;background:linear-gradient(90deg,rgba(127,179,204,.2),transparent);}
@@ -212,7 +204,6 @@ h3{font-family:var(--ff-disp);font-size:1.28rem;font-weight:400;color:var(--gold
 h3::before{content:'';display:inline-block;width:14px;height:1px;background:var(--gold);opacity:.5;}
 p{color:var(--text2);font-size:.92rem;margin-bottom:10px;}
 p strong{color:var(--text);font-weight:500;}
-
 
 .card{background:var(--glass);border:1px solid var(--bdr-sub);border-radius:var(--radius);padding:34px 28px;margin-bottom:24px;position:relative;overflow:hidden;box-shadow:var(--sh-card);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease),transform .22s var(--ease);transform-style:preserve-3d;will-change:transform;}
 @media(min-width:768px){.card{padding:44px 42px;}}
@@ -228,11 +219,9 @@ p strong{color:var(--text);font-weight:500;}
 
 .rule{height:1px;margin:34px 0;background:linear-gradient(90deg,transparent,var(--bdr-hi),transparent);}
 
-
 .math-block{background:var(--glass2);border-left:2px solid var(--gold-dk);border-radius:0 var(--radius-sm) var(--radius-sm) 0;padding:18px 26px;margin:18px 0;overflow-x:auto;position:relative;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);}
 .math-block::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--gold),rgba(201,168,76,.08));}
 .math-block.center{text-align:center;}
-
 
 .callout{display:flex;gap:16px;align-items:flex-start;border-radius:var(--radius-sm);padding:18px 22px;margin:18px 0;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);position:relative;overflow:hidden;}
 .callout::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,currentColor,transparent);opacity:.15;}
@@ -243,7 +232,6 @@ p strong{color:var(--text);font-weight:500;}
 .callout-icon{flex-shrink:0;font-size:1.1rem;margin-top:1px;line-height:1;}
 .callout-body{font-size:.87rem;color:var(--text2);}
 .callout-body strong{color:var(--text);display:block;margin-bottom:4px;}
-
 
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:18px 0;border-radius:var(--radius-sm);border:1px solid var(--bdr-sub);}
 .ftable,.data-table,.steps-table,.res-table{width:100%;border-collapse:collapse;font-family:var(--ff-mono);font-size:.75rem;}
@@ -258,7 +246,6 @@ p strong{color:var(--text);font-weight:500;}
 .ftable tr:hover td,.data-table tr:hover td,.steps-table tr:hover td,.res-table tr:hover td{background:rgba(201,168,76,.04);}
 .steps-table tfoot td,.data-table tfoot td{background:var(--s2);color:var(--gold-lt);font-weight:500;border-top:1px solid var(--bdr-hi);}
 
-
 .steps{counter-reset:step;position:relative;}
 .steps::before{content:'';position:absolute;left:19px;top:38px;bottom:38px;width:1px;background:linear-gradient(180deg,var(--bdr-hi),var(--bdr-sub),transparent);}
 .step{display:grid;grid-template-columns:46px 1fr;gap:20px;align-items:start;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--bdr-sub);transition:transform .22s var(--ease);}
@@ -271,14 +258,12 @@ p strong{color:var(--text);font-weight:500;}
 .step-body p{font-size:.90rem;color:var(--text2);margin-bottom:8px;}
 .step-body p strong{color:var(--text);}
 
-
 .result-box{border:1px solid rgba(201,168,76,.32);border-radius:var(--radius);padding:26px 32px;margin-top:28px;background:linear-gradient(135deg,rgba(201,168,76,.09),rgba(201,168,76,.02));backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);position:relative;overflow:hidden;}
 .result-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.45;}
 .result-box::after{content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;background:radial-gradient(circle,rgba(201,168,76,.18) 0%,transparent 70%);pointer-events:none;}
 .result-box .rl{font-family:var(--ff-mono);font-size:.56rem;color:var(--text3);text-transform:uppercase;letter-spacing:.20em;margin-bottom:8px;}
 .result-box .rv{font-family:var(--ff-disp);font-size:1.45rem;color:var(--gold-lt);letter-spacing:.01em;}
 .result-box .accuracy{margin-top:14px;display:inline-flex;align-items:center;gap:8px;font-family:var(--ff-mono);font-size:.62rem;color:var(--teal);background:var(--teal-dim);border:1px solid rgba(78,201,176,.2);border-radius:100px;padding:4px 12px;}
-
 
 .comp-grid{display:grid;grid-template-columns:1fr;gap:16px;margin:18px 0;}
 @media(min-width:620px){.comp-grid{grid-template-columns:1fr 1fr;}}
@@ -290,7 +275,6 @@ p strong{color:var(--text);font-weight:500;}
 .comp-card li{margin-bottom:6px;position:relative;padding-left:14px;}
 .comp-card li::before{content:'·';position:absolute;left:0;color:var(--gold);font-size:1.1rem;line-height:1.2;}
 
-
 .glossary{display:grid;grid-template-columns:1fr;border:1px solid var(--bdr-sub);border-radius:var(--radius);overflow:hidden;margin:18px 0;}
 @media(min-width:600px){.glossary{grid-template-columns:1fr 1fr;}}
 .gl-item{background:var(--glass2);padding:18px 24px;border-bottom:1px solid var(--bdr-sub);transition:background .2s;}
@@ -298,14 +282,12 @@ p strong{color:var(--text);font-weight:500;}
 .gl-term{font-family:var(--ff-mono);font-size:.62rem;color:var(--gold);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;}
 .gl-def{font-size:.82rem;color:var(--text2);}
 
-
 .formula-grid{display:grid;grid-template-columns:1fr;gap:18px;margin:18px 0;}
 @media(min-width:700px){.formula-grid{grid-template-columns:1fr 1fr;}}
 .formula-card{background:var(--glass2);border:1px solid var(--bdr-sub);border-radius:var(--radius);padding:26px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:border-color var(--dur),transform .2s,box-shadow .2s;position:relative;overflow:hidden;}
 .formula-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--bdr-hi),transparent);}
 .formula-card:hover{border-color:var(--bdr);transform:translateY(-3px);box-shadow:var(--sh-gold);}
 .formula-card h4{font-family:var(--ff-mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
-
 
 .form-label{display:block;font-family:var(--ff-mono);font-size:.59rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;}
 textarea,select,input[type=number],input[type=text]{width:100%;background:var(--s2);border:1px solid var(--bdr-sub);border-radius:var(--radius-sm);color:var(--text);font-family:var(--ff-mono);font-size:.84rem;padding:13px 16px;outline:none;transition:border-color var(--dur),box-shadow var(--dur),background var(--dur);appearance:none;-webkit-appearance:none;box-shadow:var(--sh-neu);}
@@ -317,7 +299,6 @@ textarea:focus,select:focus,input:focus{border-color:rgba(201,168,76,.45);backgr
 
 .calc-grid{display:grid;grid-template-columns:1fr;gap:20px;margin-bottom:22px;}
 @media(min-width:600px){.calc-grid{grid-template-columns:1fr 1fr;}}
-
 
 .btn{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--gold),#b8923c,#d4ac5a,var(--gold));background-size:300% 100%;color:#06050e;border:none;border-radius:var(--radius-sm);padding:14px 34px;font-family:var(--ff-body);font-size:.88rem;font-weight:500;cursor:pointer;letter-spacing:.05em;transition:transform .18s var(--ease),box-shadow .18s var(--ease),background-position .5s;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;}
 .btn::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);transition:left .55s ease;pointer-events:none;}
@@ -332,7 +313,6 @@ textarea:focus,select:focus,input:focus{border-color:rgba(201,168,76,.45);backgr
 .btn-ghost:hover{border-color:var(--bdr-hi);color:var(--text);box-shadow:var(--sh-neu),0 0 20px rgba(201,168,76,.08);transform:translateY(-1px);}
 .btn-ghost:active{transform:translateY(0) scale(.97);}
 .btn-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
-
 
 #output{display:none;margin-top:38px;}
 #output.vis{display:block;animation:fadeUp .48s var(--ease) both;}
@@ -410,7 +390,7 @@ footer a:hover{color:var(--gold);}
   <div class="eyebrow">
     <span class="eyebrow-line"></span>
     <span class="eyebrow-dot"></span>
-    Numerical Methods ·
+    Numerical Methods · Regression Analysis
   </div>
   <h1>Curve Fitting by<br><em>Linearisation</em></h1>
   <p class="header-sub">Exponential and power-law regression via log-transformed ordinary least squares — rigorous theory, verified worked examples, and an interactive calculator.</p>
@@ -422,6 +402,7 @@ footer a:hover{color:var(--gold);}
   </div>
   <div class="header-rule"></div>
 </header>
+
 
 <div class="tabs-outer">
   <div class="tab-bar" id="tabBar">
@@ -591,7 +572,7 @@ footer a:hover{color:var(--gold);}
 <div class="panel" id="panel-examples">
   <div class="accuracy-notice">
     <span style="font-size:1.1rem">✓</span>
-    <div><strong>All three examples focus on Exponential and Power-Law fitting.</strong>
+    <div><strong>All four examples focus on Exponential and Power-Law fitting.</strong>
     </div>
   </div>
 
@@ -641,9 +622,7 @@ footer a:hover{color:var(--gold);}
     <div class="result-box">
       <div class="rl">Fitted Exponential Model</div>
       <div class="rv">$y = 100.0\;e^{0.5755\,x}$,&ensp;$R^2 = 0.9999$</div>
-      <div class="accuracy">✓ Verified ·
-
-      </div>
+      <div class="accuracy">✓ FINAL ANSWER</div>
     </div>
     <div class="callout gold" style="margin-top:18px;">
       <span class="callout-icon">◈</span>
@@ -687,7 +666,7 @@ footer a:hover{color:var(--gold);}
     <div class="result-box">
       <div class="rl">Fitted Power-Law Model</div>
       <div class="rv">$y = 0.5006\;x^{2.002}$,&ensp;$R^2 = 0.9999$</div>
-      <div class="accuracy">✓ Verified · Exponent confirms $F \propto v^2$ theory</div>
+      <div class="accuracy">✓ FINAL ANSWER </div>
     </div>
   </div>
 
@@ -729,23 +708,57 @@ footer a:hover{color:var(--gold);}
     <div class="result-box">
       <div class="rl">Fitted Exponential Decay Model</div>
       <div class="rv">$y = 1199\;e^{-0.06897\,x}$,&ensp;$t_{1/2}\approx10.05$ min</div>
-      <div class="accuracy">✓ Corrected &amp; verified ·
-
-      </div>
+      <div class="accuracy">✓ FINAL ANSWER </div>
     </div>
     <div class="callout gold" style="margin-top:18px;">
       <span class="callout-icon">◈</span>
       <div class="callout-body"><strong>Physical interpretation</strong> Activity halves every $\approx 10$ minutes. The initial activity $A \approx 1199 \approx 1200$ cps perfectly matches the $y(0)$ datum, confirming correctness of the fit.</div>
     </div>
   </div>
+
+  <div class="card reveal">
+    <div class="card-accent"></div>
+    <p class="slabel">Example 4 · Power-Law Fit — $y = Ax^b$</p>
+    <h2>Kepler's Third Law</h2>
+    <p>Planetary orbital period $T$ (years) versus semi-major axis $R$ (AU). Kepler proposed $T \propto R^{1.5}$; we verify this by fitting $y = Ax^b$ to astronomical data.</p>
+    <h3>Observed Data (Inner Planets + Jupiter)</h3>
+    <div class="tbl-wrap">
+    <table class="data-table">
+      <thead><tr><th>Planet</th><th>$R$ (AU) $x$</th><th>$T$ (yr) $y$</th><th>$X_i=\ln x$</th><th>$Y_i=\ln y$</th></tr></thead>
+      <tbody>
+        <tr><td style="text-align:left; color:var(--text2)">Venus</td><td>0.723</td><td>0.615</td><td>−0.3243</td><td>−0.4861</td></tr>
+        <tr><td style="text-align:left; color:var(--text2)">Earth</td><td>1.000</td><td>1.000</td><td>0.0000</td><td>0.0000</td></tr>
+        <tr><td style="text-align:left; color:var(--text2)">Mars</td><td>1.524</td><td>1.881</td><td>0.4213</td><td>0.6318</td></tr>
+        <tr><td style="text-align:left; color:var(--text2)">Jupiter</td><td>5.204</td><td>11.862</td><td>1.6494</td><td>2.4733</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-n"></div><div class="step-body">
+        <p><strong>Sums</strong> ($n=4$, $\Sigma X = 1.7464$, $\Sigma Y = 2.6190$, $\Sigma X^2 = 3.0033$, $\Sigma XY = 4.5034$):</p>
+        <div class="math-block">$$b=\frac{4(4.5034)-(1.7464)(2.6190)}{4(3.0033)-(1.7464)^2}=\frac{18.0136-4.5738}{12.0132-3.0499}=\frac{13.4398}{8.9633}\approx\mathbf{1.4994}$$</div>
+        <div class="math-block">$$c=\bar{Y}-b\bar{X}=0.6547-1.4994\times0.4366=0.0000 \qquad A=e^{0.0000}=\mathbf{1.000}$$</div>
+      </div></div>
+      <div class="step"><div class="step-n"></div><div class="step-body">
+        <p><strong>Result</strong> — The exponent $b \approx 1.5$ perfectly verifies Kepler's theoretical model:</p>
+        <div class="math-block center">$$\boxed{y=1.000\;x^{1.499}}\qquad R^2\approx1.0000$$</div>
+      </div></div>
+    </div>
+    <div class="result-box">
+      <div class="rl">Fitted Power-Law Model</div>
+      <div class="rv">$y = 1.000\;x^{1.499}$,&ensp;$R^2 = 1.0000$</div>
+      <div class="accuracy">✓ FINAL ANSWER</div>
+    </div>
+  </div>
 </div>
+
 
 <div class="panel" id="panel-calculator">
   <div class="card reveal">
     <div class="card-accent"></div>
-    <p class="slabel">Interactive Tool</p>
+    <p class="slabel">Interactive Calculator</p>
     <h2>Fit Your Data</h2>
-    <p style="margin-bottom:28px;">Enter comma-separated $x$ and $y$ values, choose <strong>Exponential</strong> or <strong>Power-Law</strong>, and press <strong style="color:var(--text)">Fit Curve</strong>. All computation runs in your browser — no data is transmitted.</p>
+    <p style="margin-bottom:28px;">Enter comma-separated $x$ and $y$ values, choose <strong>Exponential</strong> or <strong>Power-Law</strong>, and press <strong style="color:var(--text)">Fit Curve</strong>. The frontend will communicate with the Python backend to crunch the OLS math. If unavailable, all computation gracefully falls back to run locally in your browser.</p>
 
     <div class="calc-grid">
       <div>
@@ -840,7 +853,9 @@ footer a:hover{color:var(--gold);}
 <div class="panel" id="panel-reference">
   <div class="card reveal">
     <div class="card-accent"></div>
-    <p class="slabel">Quick Reference</p>
+    
+    <p class="slabel">REFERENCE</p>
+
     <h2>Formula Sheet</h2>
     <div class="formula-grid">
       <div class="formula-card">
@@ -977,7 +992,6 @@ function updateIndicator(radioId){
   const label=document.querySelector(`label[for="${radioId}"]`);
   if(!label||!indicator)return;
   
-  // Use precise offset calculation relative to the tab-bar padding box
   indicator.style.transform=`translateX(${label.offsetLeft}px)`;
   indicator.style.width=`${label.offsetWidth}px`;
 }
@@ -1139,30 +1153,74 @@ function r2Label(r){
   return'Poor — try another model';
 }
 
-
-function runFit(){
-  const btn=document.getElementById('fitBtn');
-  document.getElementById('errMsg').innerHTML='';
-  const x=document.getElementById('xIn').value.trim().split(/[\s,]+/).filter(Boolean).map(Number);
-  const y=document.getElementById('yIn').value.trim().split(/[\s,]+/).filter(Boolean).map(Number);
-  const type=document.getElementById('fitType').value;
-  if(!x.length||!y.length){showErr('Please enter both x and y values.');return;}
-  if(x.some(isNaN)||y.some(isNaN)){showErr('Non-numeric values detected. Check your input.');return;}
+async function runFit(){
+  const btn = document.getElementById('fitBtn');
+  document.getElementById('errMsg').innerHTML = '';
+  
+  const x = document.getElementById('xIn').value.trim().split(/[\s,]+/).filter(Boolean).map(Number);
+  const y = document.getElementById('yIn').value.trim().split(/[\s,]+/).filter(Boolean).map(Number);
+  const type = document.getElementById('fitType').value;
+  
+  // Input Validations from File 1 ensuring nothing is removed
+  if(!x.length || !y.length){ showErr('Please enter both x and y values.'); return; }
+  if(x.some(isNaN) || y.some(isNaN)){ showErr('Non-numeric values detected. Check your input.'); return; }
   if(x.length!==y.length){showErr(`Length mismatch: ${x.length} x-values vs ${y.length} y-values.`);return;}
   if(x.length<3){showErr('At least 3 data points are required for a meaningful fit.');return;}
   if(y.some(v=>v<=0)){showErr('All y-values must be strictly positive (ln is undefined for y ≤ 0).');return;}
   if(type==='power'&&x.some(v=>v<=0)){showErr('Power-law requires all x-values > 0 (ln x is undefined otherwise).');return;}
-  btn.disabled=true;btn.innerHTML='<span class="spin"></span>Fitting…';
-  setTimeout(()=>{
-    try{
-      const res=computeFit(x,y,type);
-      window._lastFit={x,y,res,type};
-      renderResults(x,y,res,type);
-    }catch(e){showErr(e.message);}
-    finally{btn.disabled=false;btn.innerHTML='Fit Curve';}
-  },40);
-}
+  
+  btn.disabled = true; 
+  btn.innerHTML = '<span class="spin"></span>Fitting…';
 
+  try {
+    const response = await fetch('/calculate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ x: x, y: y, type: type })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Server error during calculation.');
+    }
+
+    const res = {
+      A: data.A, 
+      b: data.b, 
+      c: Math.log(data.A), 
+      R2: data.r_squared,
+      yPred: data.y_predicted, 
+      SSres: data.ss_res, 
+      SStot: data.ss_tot,
+      Xs: data.Xs, 
+      Ys: data.Ys,
+      sumX: data.sumX, 
+      sumY: data.sumY, 
+      sumX2: data.sumX2, 
+      sumXY: data.sumXY,
+      meanX: data.meanX, 
+      meanY: data.meanY, 
+      n: data.n
+    };
+
+    window._lastFit = { x, y, res, type };
+    renderResults(x, y, res, type);
+    
+  } catch(e) {
+    console.warn("Backend fetch failed, gracefully falling back to local JS computation...", e);
+    try {
+      const res = computeFit(x, y, type);
+      window._lastFit = { x, y, res, type };
+      renderResults(x, y, res, type);
+    } catch(localErr) {
+      showErr(localErr.message);
+    }
+  } finally {
+    btn.disabled = false; 
+    btn.innerHTML = 'Fit Curve';
+  }
+}
 
 function renderResults(x,y,res,type){
   const{A,b,c,R2,yPred,SSres,SStot,Xs,Ys,sumX,sumY,sumX2,sumXY,meanX,meanY,n}=res;
