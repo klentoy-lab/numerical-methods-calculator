@@ -72,8 +72,8 @@ body::before{
 #math-bg{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;}
 .math-symbol{
   position:absolute;font-family:var(--ff-disp);
-  color:rgba(201,168,76,.06); /* Slightly more visible base */
-  text-shadow: 0 0 12px rgba(201,168,76, 0.4); /* Glow effect added */
+  color:rgba(201,168,76,.06);
+  text-shadow: 0 0 12px rgba(201,168,76, 0.4);
   user-select:none;pointer-events:none;
   animation:float-sym linear infinite;white-space:nowrap;
 }
@@ -114,7 +114,7 @@ header h1 em::after{content:'';position:absolute;bottom:-5px;left:0;right:0;heig
 .tab-bar{
   position:relative;
   background:rgba(10,12,24,.94);
-  width:min(880px,94vw); /* Increased width from 680px */
+  width:min(880px,94vw);
   height:80px;
   padding:0 14px;
   border-radius:80px;
@@ -139,14 +139,14 @@ header h1 em::after{content:'';position:absolute;bottom:-5px;left:0;right:0;heig
   transition:transform .38s var(--spring),width .38s var(--spring);
   box-shadow:0 4px 20px rgba(0,0,0,.3),0 0 0 1px rgba(255,255,255,.04) inset;
   top:50%;margin-top:-27px;
-  left:14px;
+  left:0; /* FIXED: Removed the 14px static offset */
 }
 
 .tab-bar input[type=radio]{display:none;}
 
 .tab-bar label{
   flex:1;
-  max-width:200px; /* Increased from 155px to allow wider spreading */
+  max-width:200px;
   height:54px;
   cursor:pointer;
   position:relative;
@@ -970,12 +970,11 @@ let prevTabIndex=0;
 
 function updateIndicator(radioId){
   const label=document.querySelector(`label[for="${radioId}"]`);
-  const bar=document.getElementById('tabBar');
   if(!label||!indicator)return;
-  const barRect=bar.getBoundingClientRect();
-  const labelRect=label.getBoundingClientRect();
-  indicator.style.transform=`translateX(${labelRect.left-barRect.left}px)`;
-  indicator.style.width=`${labelRect.width}px`;
+  
+  // Use precise offset calculation relative to the tab-bar padding box
+  indicator.style.transform=`translateX(${label.offsetLeft}px)`;
+  indicator.style.width=`${label.offsetWidth}px`;
 }
 
 window.addEventListener('load',()=>{
