@@ -357,17 +357,9 @@ textarea:focus,select:focus,input:focus{border-color:rgba(201,168,76,.45);backgr
 
 footer{text-align:center;padding:52px 0 72px;border-top:1px solid var(--bdr-sub);color:var(--text3);font-size:.76rem;margin-top:72px;position:relative;}
 footer::before{content:'';position:absolute;top:-1px;left:50%;transform:translateX(-50%);width:90px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);box-shadow:0 0 16px var(--gold-glow);}
-
-.footer-logo{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
-.footer-logo img{height:70px;width:auto;opacity:0.80;transition:opacity .3s ease,transform .3s ease;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3));}
-.footer-logo img:hover{opacity:1;transform:scale(1.05);}
-.footer-logo p{margin:0;font-size:.65rem;color:var(--text3);opacity:.7;}
-
-@media(max-width:768px){
-  footer{padding:40px 0 60px;}
-  .footer-logo img{height:60px;}
-  .footer-logo p{font-size:.60rem;}
-}
+.footer-glyph{font-family:var(--ff-disp);font-size:2.4rem;color:rgba(201,168,76,.14);display:block;margin-bottom:10px;}
+footer a{color:var(--text3);text-decoration:none;transition:color var(--dur);}
+footer a:hover{color:var(--gold);}
 
 @media(max-width:480px){
   header{padding:76px 0 60px;}
@@ -380,8 +372,6 @@ footer::before{content:'';position:absolute;top:-1px;left:50%;transform:translat
   #tab-indicator{height:48px;margin-top:-24px;}
   .tab-bar label .tab-icon svg{width:18px;height:18px;}
   .tab-bar label .tab-lbl{font-size:.44rem;}
-  .footer-logo{flex-basis:45%;}
-  .footer-logo img{height:50px;}
 }
 </style>
 </head>
@@ -959,28 +949,9 @@ footer::before{content:'';position:absolute;top:-1px;left:50%;transform:translat
 </div>
 
 <footer>
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:0 24px;gap:24px;position:relative;flex-wrap:wrap;">
-    
-    <div class="footer-logo">
-      <img src="/static/ustp_logo.png" 
-           alt="USTP Logo" style="height:70px;width:auto;opacity:0.80;transition:opacity .3s ease,transform .3s ease;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3));"/>
-      <p style="margin:0;font-size:.65rem;color:var(--text3);opacity:.7;">USTP</p>
-    </div>
-
-    
-    <div style="flex:1;text-align:center;min-width:180px;">
-      <span class="footer-glyph">∿</span>
-      <p style="margin:8px 0;">Curve Fitting by Linearisation · Exponential &amp; Power-Law</p>
-      <span style="font-size:.68rem;opacity:.6;display:block;margin-top:6px;"> · BY KLENT ADRIAN DAGSA · </span>
-    </div>
-
-    
-    <div class="footer-logo">
-      <img src="/static/engineering_logo.png" 
-           alt="Engineering & Architecture Logo" style="height:70px;width:auto;opacity:0.80;transition:opacity .3s ease,transform .3s ease;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3));"/>
-      <p style="margin:0;font-size:.65rem;color:var(--text3);opacity:.7;">College of Engineering</p>
-    </div>
-  </div>
+  <span class="footer-glyph">∿</span>
+  Curve Fitting by Linearisation · Exponential &amp; Power-Law<br>
+  <span style="font-size:.68rem;margin-top:6px;display:block;opacity:.6"> · BY KLENT ADRIAN DAGSA · </span>
 </footer>
 
 </div><script>
